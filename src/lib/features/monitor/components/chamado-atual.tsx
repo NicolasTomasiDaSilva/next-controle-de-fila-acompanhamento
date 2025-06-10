@@ -1,7 +1,11 @@
+"use client";
 import { Card } from "@/components/ui/card";
 import { Ticket } from "lucide-react";
+import { useFila } from "../hooks/use-fila";
 
 export default function ChamadoAtual() {
+  const { ultimosClientesChamados } = useFila();
+
   return (
     <div className="h-full flex flex-col  justify-center items-center ">
       <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(2vh,2vw)]">
@@ -15,13 +19,15 @@ export default function ChamadoAtual() {
       </div>
 
       <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] ">
-        <p
-          className="text-[max(8vh,5vw)]
+        {ultimosClientesChamados[0]?.nome && (
+          <p
+            className="text-[max(8vh,5vw)]
       font-extrabold text-center leading-snug
     "
-        >
-          NICOLAS TOMASI DA SILVA
-        </p>
+          >
+            {ultimosClientesChamados[0].nome.toUpperCase()}
+          </p>
+        )}
       </Card>
     </div>
   );

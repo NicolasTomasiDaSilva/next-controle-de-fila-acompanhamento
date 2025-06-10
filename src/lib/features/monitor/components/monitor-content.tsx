@@ -15,7 +15,7 @@ export default function MonitorContent() {
         backgroundColor: configuracao.corPrimaria,
         color: configuracao.corSobreposicao,
         backgroundImage:
-          "radial-gradient(ellipse at center, rgb(0, 0, 0,0.3) 0%, transparent 100%)",
+          "radial-gradient(ellipse at center, rgb(0, 0, 0,0.1) 0%, transparent 100%)",
       }}
     >
       <Header />

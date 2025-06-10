@@ -3,10 +3,12 @@
 import { createContext, useState, ReactNode } from "react";
 import { Configuracao } from "../models/configuracao";
 import { Fila } from "../models/fila";
+import { Cliente } from "../models/cliente";
 
 type FilaContextType = {
   fila: Fila;
   setFila: (fila: Fila) => void;
+  filaClienteChamada: Cliente[];
 };
 
 export const FilaContext = createContext<FilaContextType | undefined>(
@@ -19,9 +21,10 @@ interface FilaProviderProps {
 }
 export const FilaProvider = ({ filaInicial, children }: FilaProviderProps) => {
   const [fila, setFila] = useState<Fila>(filaInicial);
+  const [filaClienteChamada, setFilaClienteChamada] = useState<Cliente[]>([]);
 
   return (
-    <FilaContext.Provider value={{ fila, setFila }}>
+    <FilaContext.Provider value={{ fila, setFila, filaClienteChamada }}>
       {children}
     </FilaContext.Provider>
   );

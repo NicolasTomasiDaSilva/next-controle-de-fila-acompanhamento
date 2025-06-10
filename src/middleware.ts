@@ -13,7 +13,7 @@ import { tokensCookiesParams } from "./lib/utils/tokens-cookies-params";
 const publicRoutes = [
   { path: "/monitor/login", whenAuthenticated: "redirect" },
 ] as const;
-const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/login";
+const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/monitor/login";
 const REDIRECT_WHEN_AUTHENTICATED_ROUTE = "/monitor";
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
