@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import formatarHorario from "@/lib/utils/formatar-horario";
 import hexToRgba from "@/lib/utils/hext-to-rgba";
 import { ArrowRight, CircleCheck, Ticket } from "lucide-react";
-import { useConfiguracao } from "../hooks/useConfiguracao";
+import { useConfiguracao } from "../hooks/use-configuracao";
 
 export default function ChamadoAtual() {
   const { configuracao } = useConfiguracao();
@@ -35,15 +35,15 @@ export default function ChamadoAtual() {
       >
         {ultimosChamados.map((cliente, index) => (
           <>
-            <div className="w-fullh-[max(7vh,7vw)]  flex flex-row items-center  gap-[max(1vh,1vw)] px-[max(2vh,2vw)]  py-[max(1vh,1vw)] ">
-              <p className="font-bold text-[max(3vh,3vw)] ">
+            <div className="w-fullh-[max(7vh,7vw)]  flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)] ">
+              <p className="font-bold text-[max(4vh,2.5vw)] ">
                 {formatarHorario(cliente.dataHoraChamada)}
               </p>
               <ArrowRight
-                className="h-[max(2.5vh,2.5vw)] w-[max(2.5vh,2.5vw)]"
+                className="h-[max(6vh,3vw)] w-[max(6vh,3vw)]"
                 style={{ color: hexToRgba(configuracao.corPrimaria, 1) }}
               />
-              <p className="text-[max(2.5vh,2.5vw)] font-semibold line-clamp-2  leading-none">
+              <p className="text-[max(4vh,2vw)] font-semibold line-clamp-2  leading-none">
                 {cliente.nome}
               </p>
             </div>

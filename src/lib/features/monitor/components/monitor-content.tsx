@@ -1,4 +1,6 @@
-import { useConfiguracao } from "../hooks/useConfiguracao";
+"use client";
+
+import { useConfiguracao } from "../hooks/use-configuracao";
 import ChamadoAtual from "./chamado-atual";
 import ChamadoRecentes from "./chamados-recentes";
 import Header from "./header";

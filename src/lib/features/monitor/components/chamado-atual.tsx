@@ -16,11 +16,11 @@ export default function ChamadoAtual() {
 
       <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] ">
         <p
-          className="text-[max(5vh,5vw)]
+          className="text-[max(8vh,5vw)]
       font-extrabold text-center leading-snug
     "
         >
-          NICOLAS TOMASI DA SILVA SILVA SILVA
+          NICOLAS TOMASI DA SILVA
         </p>
       </Card>
     </div>
