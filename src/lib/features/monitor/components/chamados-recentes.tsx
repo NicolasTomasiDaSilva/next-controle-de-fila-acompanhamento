@@ -7,10 +7,10 @@ import { ArrowRight, CircleCheck, Ticket } from "lucide-react";
 import { useConfiguracao } from "../hooks/use-configuracao";
 import React, { useMemo } from "react";
 import { useFila } from "../hooks/use-fila";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ChamadoAtual() {
   const { configuracao } = useConfiguracao();
-
   const { ultimosClientesChamados } = useFila();
 
   const clientesParaExibir = useMemo(() => {

@@ -5,7 +5,6 @@ import { useFila } from "../hooks/use-fila";
 
 export default function ChamadoAtual() {
   const { ultimosClientesChamados } = useFila();
-
   return (
     <div className="h-full flex flex-col  justify-center items-center ">
       <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(1vh,1vw)]">

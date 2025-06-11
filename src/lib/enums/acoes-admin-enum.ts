@@ -3,8 +3,6 @@ export enum AcoesAdminEnum {
 
   ChamarClientes = 2,
 
-  AtenderClientes = 3,
-
   RemoverClientes = 4,
 
   AusentarClientes = 5,

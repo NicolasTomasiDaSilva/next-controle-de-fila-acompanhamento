@@ -5,8 +5,10 @@ import { HubConnection } from "@microsoft/signalr";
 import { connectToHub } from "@/lib/signalr/client";
 import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { toast } from "sonner";
+import { useFila } from "./use-fila";
 
 export function useSignalrFila() {
+  const { handleEventoChamarClientes } = useFila();
   useEffect(() => {
     let connection: HubConnection;
     let isMounted = true;
@@ -19,7 +21,7 @@ export function useSignalrFila() {
         connection = await connectToHub();
 
         connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
-          console.log("evento chamada recebido", data);
+          await handleEventoChamarClientes(data);
         });
 
         // Loga caso a conexão caia
@@ -52,5 +54,5 @@ export function useSignalrFila() {
         connection.stop();
       }
     };
-  });
+  }, []);
 }

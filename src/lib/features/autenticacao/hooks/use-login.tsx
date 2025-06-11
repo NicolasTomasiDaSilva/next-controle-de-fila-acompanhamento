@@ -39,7 +39,6 @@ export function useLogin() {
   const [step, setStep] = useState<number>(1);
   const [qrcodeExpirado, setQrcodeExpirado] = useState<boolean>(false);
   const [inputMask, setInputMask] = useState<string>("");
-  console.log("PASSOU AQUI:", idVinculacao);
 
   useSignalrLogin(idVinculacao);
 
