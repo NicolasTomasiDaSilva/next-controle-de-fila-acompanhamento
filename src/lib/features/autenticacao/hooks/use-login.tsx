@@ -18,6 +18,7 @@ import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { AuthTokens, authTokensSchema } from "../models/auth-tokens";
 import { autenticacaoService } from "../services/autenticacao-service";
 import { useRouter } from "next/navigation";
+import { useSignalrLogin } from "./use-signalr-login";
 
 export function useLogin() {
   const formSchema = z.object({
@@ -28,6 +29,7 @@ export function useLogin() {
     resolver: zodResolver(formSchema),
     defaultValues: { cpfCnpj: "" },
   });
+
   const router = useRouter();
   const [idVinculacao, setIdVinculacao] = useState<string | null>(null);
   const [cpfCnpj, setCpfCnpj] = useState<string>("");
@@ -37,6 +39,9 @@ export function useLogin() {
   const [step, setStep] = useState<number>(1);
   const [qrcodeExpirado, setQrcodeExpirado] = useState<boolean>(false);
   const [inputMask, setInputMask] = useState<string>("");
+  console.log("PASSOU AQUI:", idVinculacao);
+
+  useSignalrLogin(idVinculacao);
 
   const handleMaskedChange = (value: string) => {
     const raw = value.replace(/\D/g, "");
@@ -108,52 +113,8 @@ export function useLogin() {
     return () => clearTimeout(timerId);
   }, [dataExpiracao]);
 
-  useEffect(() => {
-    if (!idVinculacao) {
-      return;
-    }
-
-    let connection: HubConnection;
-    let isMounted = true;
-
-    async function startConnection() {
-      try {
-        if (!isMounted) {
-          return;
-        }
-        connection = await connectToHub("controledefilahub", {
-          idVinculacao: idVinculacao as string,
-        });
-        connection.on(eventosHubMonitor.Vinculado, async (data) => {
-          const result = authTokensSchema.safeParse(data);
-          if (!result.success) {
-            throw new Error(result.error.message);
-          }
-          const tokens: AuthTokens = result.data;
-          await autenticacaoService.login(tokens);
-          router.push("/monitor");
-        });
-
-        await connection.start();
-        console.log("✅ SignalR conectado");
-      } catch (error) {
-        toast.error("Erro ao fazer vinculação.");
-        await autenticacaoService.logout();
-        router.push("/monitor/login");
-      }
-    }
-
-    startConnection();
-
-    return () => {
-      isMounted = false;
-      if (connection) {
-        connection.stop();
-      }
-    };
-  }, [idVinculacao]);
-
   return {
+    idVinculacao,
     form,
     step,
     setStep,

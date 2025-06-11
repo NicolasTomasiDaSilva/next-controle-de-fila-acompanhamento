@@ -39,7 +39,7 @@ export default function RootLayout({
         <Toaster
           visibleToasts={2}
           position="top-right"
-          duration={1000}
+          duration={5000}
           richColors // cores automáticas para success/error/etc
           expand={true} // abre toasts com descrição mais largos
           closeButton // adiciona botão de fechar

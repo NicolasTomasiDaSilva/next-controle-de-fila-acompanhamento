@@ -8,11 +8,11 @@ export default function ChamadoAtual() {
 
   return (
     <div className="h-full flex flex-col  justify-center items-center ">
-      <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(2vh,2vw)]">
-        <Ticket className="h-[max(3vh,3vw)] w-[max(3vh,3vw)]" />
+      <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(1vh,1vw)]">
+        <Ticket className="h-[max(3.5vh,2vw)] w-[max(3.5vh,2vw)] icon-shadow" />
         <p
-          className="text-[max(2vh,2vw)]
-      font-extrabold whitespace-nowrap"
+          className="text-[max(3vh,1.5vw)]
+      font-extrabold whitespace-nowrap text-shadow"
         >
           CHAMADO ATUAL
         </p>
@@ -22,7 +22,7 @@ export default function ChamadoAtual() {
         {ultimosClientesChamados[0]?.nome && (
           <p
             className="text-[max(8vh,5vw)]
-      font-extrabold text-center leading-snug
+      font-extrabold text-center leading-snug text-shadow
     "
           >
             {ultimosClientesChamados[0].nome.toUpperCase()}

@@ -21,11 +21,11 @@ export default function ChamadoAtual() {
 
   return (
     <div className="  h-full flex flex-col  justify-center items-center ">
-      <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(2vh,2vw)]">
-        <CircleCheck className="h-[max(3vh,3vw)] w-[max(3vh,3vw)]" />
+      <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(1vh,1vw)]">
+        <CircleCheck className="h-[max(3.5vh,2vw)] w-[max(3.5vh,2vw)] icon-shadow" />
         <p
-          className="text-[max(2vh,2vw)]
-      font-extrabold whitespace-nowrap
+          className="text-[max(3vh,1.5vw)]
+      font-extrabold whitespace-nowrap text-shadow
  "
         >
           ÚLTIMOS CHAMADOS
@@ -45,14 +45,14 @@ export default function ChamadoAtual() {
                 key={cliente.id}
                 className="w-full h-[max(4.5vh,2vw)]  flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)]"
               >
-                <p className="font-bold text-[max(4vh,2.5vw)] ">
+                <p className="font-bold text-[max(4vh,2.5vw)] text-shadow ">
                   {formatarHorario(cliente.dataHoraChamada!)}
                 </p>
                 <ArrowRight
-                  className="h-[max(2.5vh,2vw)] w-[max(6vh,3vw)]"
+                  className="h-[max(2.5vh,2vw)] w-[max(6vh,3vw)] icon-shadow"
                   style={{ color: configuracao.corSobreposicao }}
                 />
-                <p className="text-[max(4.5vh,2vw)] font-semibold line-clamp-2  leading-none ">
+                <p className="text-[max(4.5vh,2vw)] font-semibold line-clamp-2  leading-none text-shadow">
                   {cliente.nome.toLocaleUpperCase()}
                 </p>
               </div>

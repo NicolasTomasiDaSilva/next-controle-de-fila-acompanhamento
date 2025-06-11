@@ -7,7 +7,6 @@ import { filaService } from "@/lib/features/monitor/services/fila-service";
 export default async function MonitorPage() {
   const configuracao = await configuracaoService.obterConfiguracao();
   const fila = await filaService.obterFila();
-  console.log(fila);
 
   return (
     <ConfiguracaoProvider configuracaoInicial={configuracao}>

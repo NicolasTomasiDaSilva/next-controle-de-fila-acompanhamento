@@ -15,11 +15,11 @@ import { QRCode } from "react-qrcode-logo";
 import { ExpirationBar } from "./expiration-bar";
 import { Separator } from "@/components/ui/separator";
 import { ChevronRight, RefreshCcw } from "lucide-react";
+
 export default function LoginForm() {
   const {
     form,
     step,
-    setStep,
     inputMask,
     handleMaskedChange,
     onSubmit,
@@ -29,6 +29,7 @@ export default function LoginForm() {
     qrcodeExpirado,
     handleGerarNovamente,
   } = useLogin();
+
   return (
     <div className="w-full">
       {step === 1 && (

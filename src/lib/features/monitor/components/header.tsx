@@ -13,15 +13,15 @@ export default function Header() {
       style={{ backgroundColor: configuracao.corPrimaria }}
     >
       <h1
-        className="text-[max(3vh,3vw)]
-      font-extrabold whitespace-nowrap"
+        className="text-[max(4vh,3vw)]
+      font-extrabold whitespace-nowrap text-shadow"
       >
         BANCO DO BRASIL
       </h1>
 
-      <Badge className="h-[max(2vh,2vw)] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[max(1.5vh,1.5vw)] !px-[max(0.75vh,0.75vw)] text-inherit">
-        <Clock className="!h-[max(2vh,2vw)] !w-[max(2vh,2vw)]" />
-        <p className="text-[max(2vh,2vw)]">{dataFormatada}</p>
+      <Badge className="h-[max(2vh,2vw)] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[max(1.5vh,1.5vw)] !px-[max(0.75vh,0.75vw)] text-inherit ">
+        <Clock className="!h-[max(2vh,2vw)] !w-[max(2vh,2vw)] icon-shadow" />
+        <p className="text-[max(2vh,2vw)] text-shadow">{dataFormatada}</p>
       </Badge>
     </div>
   );
