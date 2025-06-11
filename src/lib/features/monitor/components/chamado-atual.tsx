@@ -3,6 +3,9 @@ import { Card } from "@/components/ui/card";
 import { Ticket } from "lucide-react";
 import { useFila } from "../hooks/use-fila";
 import { motion } from "framer-motion";
+import { Cliente } from "../models/cliente";
+import { useState } from "react";
+import { StatusEnum } from "@/lib/enums/status-enum";
 
 const animacao = {
   hidden: { opacity: 0, scale: 0.6 },
@@ -10,7 +13,18 @@ const animacao = {
 };
 
 export default function ChamadoAtual() {
-  const { ultimosClientesChamados } = useFila();
+  const { fila } = useFila();
+  const [ultimosClientesChamados, setUltimosClientesChamados] = useState<
+    Cliente[]
+  >(
+    fila.clientes
+      .filter((cliente) => cliente.status === StatusEnum.Chamado)
+      .sort(
+        (a, b) =>
+          new Date(b.dataHoraChamada!).getTime() -
+          new Date(a.dataHoraChamada!).getTime()
+      )
+  );
   return (
     <div className="h-full flex flex-col  justify-center items-center ">
       <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(1vh,1vw)]">

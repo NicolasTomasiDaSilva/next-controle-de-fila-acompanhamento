@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useFila } from "./use-fila";
 
 export function useSignalrFila() {
-  const { handleEventoChamarClientes } = useFila();
+  // const { handleEventoChamarClientes } = useFila();
   useEffect(() => {
     let connection: HubConnection;
     let isMounted = true;
@@ -21,7 +21,7 @@ export function useSignalrFila() {
         connection = await connectToHub();
 
         connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
-          await handleEventoChamarClientes(data);
+          // await handleEventoChamarClientes(data);
         });
 
         // Loga caso a conexão caia

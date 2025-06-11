@@ -5,9 +5,11 @@ import formatarHorario from "@/lib/utils/formatar-horario";
 import { lightenColor } from "@/lib/utils/color-utils";
 import { ArrowRight, CircleCheck, Ticket } from "lucide-react";
 import { useConfiguracao } from "../hooks/use-configuracao";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useFila } from "../hooks/use-fila";
 import { motion, AnimatePresence } from "framer-motion";
+import { Cliente } from "../models/cliente";
+import { StatusEnum } from "@/lib/enums/status-enum";
 
 const animacao = {
   hidden: { opacity: 0, x: -30 }, // começa 30px à esquerda e invisível
@@ -15,7 +17,20 @@ const animacao = {
 };
 export default function ChamadoAtual() {
   const { configuracao } = useConfiguracao();
-  const { ultimosClientesChamados } = useFila();
+
+  const { fila } = useFila();
+
+  const [ultimosClientesChamados, setUltimosClientesChamados] = useState<
+    Cliente[]
+  >(
+    fila.clientes
+      .filter((cliente) => cliente.status === StatusEnum.Chamado)
+      .sort(
+        (a, b) =>
+          new Date(b.dataHoraChamada!).getTime() -
+          new Date(a.dataHoraChamada!).getTime()
+      )
+  );
 
   const clientesParaExibir = useMemo(() => {
     const visiveis = ultimosClientesChamados.slice(1, 5);
