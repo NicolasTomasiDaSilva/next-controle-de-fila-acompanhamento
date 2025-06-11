@@ -9,6 +9,10 @@ import React, { useMemo } from "react";
 import { useFila } from "../hooks/use-fila";
 import { motion, AnimatePresence } from "framer-motion";
 
+const animacao = {
+  hidden: { opacity: 0, x: -30 }, // começa 30px à esquerda e invisível
+  visible: { opacity: 1, x: 0 }, // termina no lugar e visível
+};
 export default function ChamadoAtual() {
   const { configuracao } = useConfiguracao();
   const { ultimosClientesChamados } = useFila();
@@ -33,18 +37,22 @@ export default function ChamadoAtual() {
       </div>
 
       <Card
-        className="flex-1 w-full rounded-[max(2vh,2vw)]  border-none items-start justify-evenly p-[max(2vh,2vw)] text-inherit gap-0 space-y-0  py-0 shadow-none shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+        className="flex-1 w-full rounded-[max(2vh,2vw)]  border-none items-start justify-evenly px-[max(2vh,2vw)] text-inherit gap-0 space-y-0  py-0 shadow-none shadow-[0_0_10px_rgba(0,0,0,0.1)]"
         style={{
           backgroundColor: lightenColor(configuracao.corPrimaria, 5),
         }}
       >
         {clientesParaExibir.map((cliente, index) => (
-          <React.Fragment key={cliente?.id ?? `placeholder-${index}`}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={animacao}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            key={cliente?.id ?? `placeholder-${index}`}
+            className="w-full flex-1 flex flex-col items-center justify-center border-b-1 border-white/30 last:border-0"
+          >
             {cliente ? (
-              <div
-                key={cliente.id}
-                className="w-full h-[max(4.5vh,2vw)]  flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)]"
-              >
+              <div className="w-full flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)]">
                 <p className="font-bold text-[max(4vh,2.5vw)] text-shadow ">
                   {formatarHorario(cliente.dataHoraChamada!)}
                 </p>
@@ -56,14 +64,8 @@ export default function ChamadoAtual() {
                   {cliente.nome.toLocaleUpperCase()}
                 </p>
               </div>
-            ) : (
-              <div className="w-full h-[max(4.5vh,2vw)] px-[max(2vh,2vw)] py-[max(2vh,2vw)]"></div>
-            )}
-
-            {index !== 3 && (
-              <Separator className=" !h-[max(0.0.5vh,0.0.5vw)] bg-white/30 rounded-full" />
-            )}
-          </React.Fragment>
+            ) : null}
+          </motion.div>
         ))}
       </Card>
     </div>

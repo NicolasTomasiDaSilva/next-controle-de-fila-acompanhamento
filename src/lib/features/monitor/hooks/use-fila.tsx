@@ -24,7 +24,7 @@ export function useFila() {
   useEffect(() => {
     const intervalo = setInterval(() => {
       chamarProximoCliente();
-    }, 10000); // 10 segundos
+    }, 1); // 10 segundos
 
     return () => clearInterval(intervalo);
   }, []);

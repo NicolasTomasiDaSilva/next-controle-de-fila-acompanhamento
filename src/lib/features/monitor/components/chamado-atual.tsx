@@ -2,6 +2,12 @@
 import { Card } from "@/components/ui/card";
 import { Ticket } from "lucide-react";
 import { useFila } from "../hooks/use-fila";
+import { motion } from "framer-motion";
+
+const animacao = {
+  hidden: { opacity: 0, scale: 0.6 },
+  visible: { opacity: 1, scale: 1 },
+};
 
 export default function ChamadoAtual() {
   const { ultimosClientesChamados } = useFila();
@@ -19,13 +25,18 @@ export default function ChamadoAtual() {
 
       <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
         {ultimosClientesChamados[0]?.nome && (
-          <p
+          <motion.p
+            key={ultimosClientesChamados[0].nome}
+            initial="hidden"
+            animate="visible"
+            variants={animacao}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-[max(8vh,5vw)]
       font-extrabold text-center leading-snug text-shadow
     "
           >
             {ultimosClientesChamados[0].nome.toUpperCase()}
-          </p>
+          </motion.p>
         )}
       </Card>
     </div>
