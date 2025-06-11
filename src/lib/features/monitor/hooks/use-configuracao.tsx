@@ -8,5 +8,6 @@ export function useConfiguracao() {
       "useConfiguracao must be used within a ConfiguracaoProvider"
     );
   }
+
   return context;
 }

@@ -14,8 +14,6 @@ export default function MonitorContent() {
       style={{
         backgroundColor: configuracao.corPrimaria,
         color: configuracao.corSobreposicao,
-        backgroundImage:
-          "radial-gradient(ellipse at center, rgb(0, 0, 0,0.1) 0%, transparent 100%)",
       }}
     >
       <Header />

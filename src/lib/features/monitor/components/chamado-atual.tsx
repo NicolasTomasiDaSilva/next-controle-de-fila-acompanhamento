@@ -18,7 +18,7 @@ export default function ChamadoAtual() {
         </p>
       </div>
 
-      <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] ">
+      <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
         {ultimosClientesChamados[0]?.nome && (
           <p
             className="text-[max(8vh,5vw)]
