@@ -11,6 +11,7 @@ import {
 } from "../models/data-evento-acao-admin";
 import { Cliente } from "../models/cliente";
 import { ordenarPorDataHora } from "@/lib/utils/ordenacao-utils";
+import { falarNome } from "@/lib/utils/falar-utils";
 
 export function useFila() {
   const context = useContext(FilaContext);
@@ -82,6 +83,8 @@ export function useFila() {
     console.log("Chamando cliente:", proximoCliente);
 
     // Atualiza o estado ou dispara evento para refletir a fila atualizada
+
+    falarNome(proximoCliente.nome);
     setFila((filaAnterior) => {
       return {
         ...filaAnterior,
