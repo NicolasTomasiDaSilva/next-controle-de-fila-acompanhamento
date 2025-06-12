@@ -1,73 +1,53 @@
+import { Entidade, entidadeSchema } from "./entidade";
 import { z } from "zod";
-import { entidadeSchema } from "./entidade";
+import { texto } from "./values";
+import { text } from "stream/consumers";
 
 export const configuracaoSchema = entidadeSchema.extend({
-  empresaId: z.string().uuid("ID da empresa inválido"),
-  nomeDisplay: z
-    .string()
-    .trim()
-    .min(3, "Nome deve ter no mínimo 3 caracteres")
-    .max(50, "Nome deve ter máximo 50 caracteres"),
+  empresaId: z.string().uuid(),
+  nomeDisplay: texto({ campo: "Nome Fantasia", min: 1, max: 50 }),
   whatsappAtivo: z.boolean(),
-  enderecoDisplay: z
-    .string()
-    .trim()
-    .transform((val) => (val === "" ? null : val))
-    .nullable()
-    .refine((val) => val === null || val.length >= 3, {
-      message: "Endereço deve ter no mínimo 3 caracteres",
-    })
-    .refine((val) => val === null || val.length <= 50, {
-      message: "Endereço deve ter no máximo 50 caracteres",
-    }),
-  mensagemEntrada: z
-    .string()
-    .trim()
-    .transform((val) => (val === "" ? null : val))
-    .nullable()
-    .refine((val) => val === null || val.length >= 1, {
-      message: "Mensagem de entrada deve ter no mínimo 1 caractere",
-    })
-    .refine((val) => val === null || val.length <= 500, {
-      message: "Mensagem de entrada deve ter no máximo 500 caracteres",
-    }),
-  mensagemChamada: z
-    .string()
-    .trim()
-    .transform((val) => (val === "" ? null : val))
-    .nullable()
-    .refine((val) => val === null || val.length >= 1, {
-      message: "Mensagem de chamada deve ter no mínimo 1 caractere",
-    })
-    .refine((val) => val === null || val.length <= 500, {
-      message: "Mensagem de chamada deve ter no máximo 500 caracteres",
-    }),
-  mensagemRemovido: z
-    .string()
-    .trim()
-    .transform((val) => (val === "" ? null : val))
-    .nullable()
-    .refine((val) => val === null || val.length >= 1, {
-      message: "Mensagem de removido deve ter no mínimo 1 caractere",
-    })
-    .refine((val) => val === null || val.length <= 500, {
-      message: "Mensagem de removido deve ter no máximo 500 caracteres",
-    }),
+  enderecoDisplay: texto({
+    campo: "Endereço",
+    min: 1,
+    max: 50,
+    transformarEmNull: true,
+  }),
   logoUrl: z
     .string()
     .transform((val) => (val === "" ? null : val))
     .nullable()
-    .refine(
-      (val) =>
-        val === null ||
-        val === undefined ||
-        z.string().url().safeParse(val).success,
-      {
-        message: "URL inválida",
+    .superRefine((val, ctx) => {
+      if (val !== null) {
+        const result = z.string().url().safeParse(val);
+        if (!result.success) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "URL inválida",
+          });
+        }
       }
-    ),
-  corPrimaria: z.string().trim(),
-  corSobreposicao: z.string().trim(),
+    }),
+  mensagemEntrada: texto({
+    campo: "Mensagem de Entrada",
+    min: 1,
+    max: 500,
+    transformarEmNull: true,
+  }),
+  mensagemChamada: texto({
+    campo: "Mensagem de Chamada",
+    min: 1,
+    max: 500,
+    transformarEmNull: true,
+  }),
+  mensagemRemovido: texto({
+    campo: "Mensagem de Remoção",
+    min: 1,
+    max: 500,
+    transformarEmNull: true,
+  }),
+  corPrimaria: texto({ campo: "Cor Primária", min: 4, max: 9 }),
+  corSobreposicao: texto({ campo: "Cor Sobreposição", min: 4, max: 9 }),
 });
 
 export type Configuracao = z.infer<typeof configuracaoSchema>;

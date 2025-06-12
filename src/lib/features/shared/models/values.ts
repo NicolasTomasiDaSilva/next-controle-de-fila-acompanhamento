@@ -1,10 +1,6 @@
 import { isCNPJ, isCPF } from "brazilian-values";
 import { z } from "zod";
 
-export const codigoSchema = z.string().regex(/^[a-zA-Z0-9]{4}$/, {
-  message: "Código inválido",
-});
-
 export const cpfCnpjSchema = z
   .string()
   .nonempty("CPF ou CNPJ é obrigatório")

@@ -1,16 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import React, { useEffect, useRef, useState } from "react";
 
-import LogoCervantes from "@/assets/images/logo-cervantes.jpg";
-import Image from "next/image";
-import Link from "next/link";
-import { empresaSchema } from "../../monitor/models/empresa";
-
-import z, { set } from "zod";
-import { formatarCpfCnpj } from "@/lib/utils/cpf-cnpj-utils";
-import { cpfCnpjSchema } from "../../shared/models/values";
-import { vinculacaoService } from "../../monitor/services/vinculacao-service";
 import { toast } from "sonner";
 import { HubConnection } from "@microsoft/signalr";
 import { connectToHub } from "@/lib/signalr/client";
