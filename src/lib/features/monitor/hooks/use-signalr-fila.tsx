@@ -6,11 +6,14 @@ import { connectToHub } from "@/lib/signalr/client";
 import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { toast } from "sonner";
 import { useFila } from "./use-fila";
-import { dataEventoAcaoClienteSchema } from "../models/data-evento-acao-admin";
+import {
+  DataEventoAcaoClienteDTO,
+  dataEventoAcaoClienteSchema,
+} from "../models/data-evento-acao-admin";
 
 interface useSignalrFilaProps {
-  handleEventoChamarClientes: (data: any) => Promise<void>;
-  handleEventoVoltarClientes: (data: any) => Promise<void>;
+  handleEventoChamarClientes: (data: DataEventoAcaoClienteDTO) => Promise<void>;
+  handleEventoVoltarClientes: (data: DataEventoAcaoClienteDTO) => Promise<void>;
 }
 export function useSignalrFila({
   handleEventoChamarClientes,
