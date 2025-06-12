@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 import { Configuracao } from "../models/configuracao";
 import { Fila } from "../models/fila";
 import { Cliente } from "../models/cliente";
@@ -8,7 +8,7 @@ import { StatusEnum } from "@/lib/enums/status-enum";
 
 type FilaContextType = {
   fila: Fila;
-  setFila: (fila: Fila) => void;
+  setFila: React.Dispatch<React.SetStateAction<Fila>>;
 };
 
 export const FilaContext = createContext<FilaContextType | undefined>(

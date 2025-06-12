@@ -15,28 +15,20 @@ const animacao = {
   hidden: { opacity: 0, x: -30 }, // começa 30px à esquerda e invisível
   visible: { opacity: 1, x: 0 }, // termina no lugar e visível
 };
-export default function ChamadoAtual() {
+
+interface UltimosChamadosProps {
+  ultimosChamados: Cliente[];
+}
+export default function UltimosChamados({
+  ultimosChamados,
+}: UltimosChamadosProps) {
   const { configuracao } = useConfiguracao();
 
-  const { fila } = useFila();
-
-  const [ultimosClientesChamados, setUltimosClientesChamados] = useState<
-    Cliente[]
-  >(
-    fila.clientes
-      .filter((cliente) => cliente.status === StatusEnum.Chamado)
-      .sort(
-        (a, b) =>
-          new Date(b.dataHoraChamada!).getTime() -
-          new Date(a.dataHoraChamada!).getTime()
-      )
-  );
-
   const clientesParaExibir = useMemo(() => {
-    const visiveis = ultimosClientesChamados.slice(1, 5);
+    const visiveis = ultimosChamados.slice(1, 5);
     const faltando = Math.max(0, 4 - visiveis.length);
     return [...visiveis, ...Array(faltando).fill(null)];
-  }, [ultimosClientesChamados]);
+  }, [ultimosChamados]);
 
   return (
     <div className="  h-full flex flex-col  justify-center items-center ">

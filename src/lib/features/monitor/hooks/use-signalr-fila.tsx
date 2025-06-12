@@ -7,8 +7,14 @@ import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { toast } from "sonner";
 import { useFila } from "./use-fila";
 
-export function useSignalrFila() {
-  // const { handleEventoChamarClientes } = useFila();
+interface useSignalrFilaProps {
+  handleEventoChamarClientes: (data: any) => Promise<void>;
+  handleEventoVoltarClientes: (data: any) => Promise<void>;
+}
+export function useSignalrFila({
+  handleEventoChamarClientes,
+  handleEventoVoltarClientes,
+}: useSignalrFilaProps) {
   const connectionRef = useRef<HubConnection | null>(null);
 
   useEffect(() => {
@@ -17,9 +23,17 @@ export function useSignalrFila() {
         const connection = await connectToHub();
         connectionRef.current = connection;
 
-        // connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
-        //   await handleEventoChamarClientes(data);
-        // });
+        connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
+          await handleEventoChamarClientes(data);
+        });
+        connection.on(
+          eventosHubMonitor.VoltarParaFilaClientes,
+
+          async (data) => {
+            console.log("voltar cliente recebido", data);
+            await handleEventoVoltarClientes(data);
+          }
+        );
 
         connection.onclose(() => {
           toast.error("Erro de conexão.");
