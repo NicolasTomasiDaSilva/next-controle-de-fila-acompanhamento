@@ -24,7 +24,7 @@ export default function UltimosChamados({
 }: UltimosChamadosProps) {
   const { configuracao } = useConfiguracao();
 
-  const clientesParaExibir = useMemo(() => {
+  const clientesParaExibir: (Cliente | null)[] = useMemo(() => {
     const visiveis = ultimosChamados.slice(1, 5);
     const faltando = Math.max(0, 4 - visiveis.length);
     return [...visiveis, ...Array(faltando).fill(null)];
@@ -61,7 +61,7 @@ export default function UltimosChamados({
             {cliente ? (
               <div className="w-full flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)]">
                 <p className="font-bold text-[max(4vh,2.5vw)] text-shadow ">
-                  {formatarHorario(cliente.dataHoraChamada!)}
+                  {formatarHorario(cliente.dataHoraChamada)}
                 </p>
                 <ArrowRight
                   className="h-[max(2.5vh,2vw)] w-[max(6vh,3vw)] icon-shadow"

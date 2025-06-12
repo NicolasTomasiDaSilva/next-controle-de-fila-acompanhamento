@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const { configuracao } = useConfiguracao();
-  const [dataFormatada, setDataFormatada] = useState("--:--");
+  const [dataFormatada, setDataFormatada] = useState<string | null>(null);
   useEffect(() => {
     const timer = setInterval(() => {
       const agora = new Date();
@@ -32,7 +32,9 @@ export default function Header() {
 
       <Badge className="h-[max(2vh,2vw)] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[max(1.5vh,1.5vw)] !px-[max(0.75vh,0.75vw)] ">
         <Clock className="!h-[max(2vh,2vw)] !w-[max(2vh,2vw)] icon-shadow" />
-        <p className="text-[max(2vh,2vw)] text-shadow">{dataFormatada}</p>
+        <p className="text-[max(2vh,2vw)] text-shadow">
+          {dataFormatada && dataFormatada}
+        </p>
       </Badge>
     </div>
   );

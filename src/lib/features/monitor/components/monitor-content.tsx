@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function MonitorContent() {
   const [audioLiberado, setAudioLiberado] = useState(false);
@@ -53,14 +54,15 @@ export default function MonitorContent() {
       );
       utterance.lang = "pt-BR";
       window.speechSynthesis.speak(utterance);
+      toast.success("Notificações sonoras ativadas.");
     } catch (err) {
-      console.error("Erro ao liberar som.");
+      toast.error("Erro ao ativar notificações sonoras.");
     }
   }
 
   return (
     <>
-      <Dialog open={mostrarDialog}>
+      <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>

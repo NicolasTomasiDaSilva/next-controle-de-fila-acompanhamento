@@ -6,6 +6,7 @@ import { connectToHub } from "@/lib/signalr/client";
 import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { toast } from "sonner";
 import { useFila } from "./use-fila";
+import { dataEventoAcaoClienteSchema } from "../models/data-evento-acao-admin";
 
 interface useSignalrFilaProps {
   handleEventoChamarClientes: (data: any) => Promise<void>;
@@ -29,9 +30,12 @@ export function useSignalrFila({
         connection.on(
           eventosHubMonitor.VoltarParaFilaClientes,
 
-          async (data) => {
-            console.log("voltar cliente recebido", data);
-            await handleEventoVoltarClientes(data);
+          async (data: any) => {
+            const resultado = dataEventoAcaoClienteSchema.safeParse(data);
+            if (!resultado.success) {
+              throw new Error("Evento recebido inválido.");
+            }
+            await handleEventoVoltarClientes(resultado.data);
           }
         );
 

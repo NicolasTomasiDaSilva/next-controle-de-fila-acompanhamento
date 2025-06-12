@@ -31,16 +31,10 @@ export function useFila() {
 
   const filaDeChamada = useRef<Cliente[]>([]);
 
-  async function handleEventoVoltarClientes(data: any) {
-    const resultado = dataEventoAcaoClienteSchema.safeParse(data);
-    if (!resultado.success) {
-      throw new Error("Evento recebido inválido.");
-    }
-
-    const { clientesAcao } = resultado.data;
+  async function handleEventoVoltarClientes(data: DataEventoAcaoClienteDTO) {
+    const { clientesAcao } = data;
     const idsParaVoltar = new Set(clientesAcao.map((c) => c.id));
 
-    // Remove os clientes da filaDeChamada
     filaDeChamada.current = filaDeChamada.current.filter(
       (cliente) => !idsParaVoltar.has(cliente.id)
     );
@@ -52,13 +46,8 @@ export function useFila() {
     }));
   }
 
-  async function handleEventoChamarClientes(data: any) {
-    const resultado = dataEventoAcaoClienteSchema.safeParse(data);
-    if (!resultado.success) {
-      throw new Error("Evento recebido inválido.");
-    }
-    const { clientesAcao } = resultado.data;
-
+  async function handleEventoChamarClientes(data: DataEventoAcaoClienteDTO) {
+    const { clientesAcao } = data;
     const novaFila = [...filaDeChamada.current, ...clientesAcao];
 
     filaDeChamada.current = ordenarPorDataHora<Cliente>(
@@ -70,19 +59,12 @@ export function useFila() {
 
   function chamarProximoCliente() {
     if (filaDeChamada.current.length === 0) {
-      console.log("Nenhum cliente para chamar.");
       return;
     }
 
     const proximoCliente = filaDeChamada.current[0];
 
-    // Remove ele da fila
     filaDeChamada.current = filaDeChamada.current.slice(1);
-
-    // Aqui você faz o que precisa com o cliente chamado, ex:
-    console.log("Chamando cliente:", proximoCliente);
-
-    // Atualiza o estado ou dispara evento para refletir a fila atualizada
 
     falarNome(proximoCliente.nome);
     setFila((filaAnterior) => {
@@ -96,7 +78,7 @@ export function useFila() {
   useEffect(() => {
     const intervalo = setInterval(() => {
       chamarProximoCliente();
-    }, 5000); // a cada 10 segundos
+    }, 5000);
 
     return () => clearInterval(intervalo);
   }, []);
