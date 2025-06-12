@@ -86,7 +86,7 @@ export default function MonitorContent() {
         }}
       >
         <Header />
-        <div className="flex flex-row flex-1 gap-[max(2.5vh,2.5vw)] py-[max(1vh,1vw)] px-[max(2.5vh,2.5vw)] ">
+        <div className="flex flex-row flex-1 gap-[max(2.5vh,2.5vw)] py-[max(2.5vh,2.5vw)] px-[max(2.5vh,2.5vw)] pt-[max(1vh,1vw)]">
           <div className="w-1/2 ">
             <ChamadoAtual ultimosChamados={ultimosChamados} />
           </div>
