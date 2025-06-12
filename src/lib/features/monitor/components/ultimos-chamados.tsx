@@ -58,7 +58,7 @@ export default function UltimosChamados({
             key={cliente?.id ?? `placeholder-${index}`}
             className="w-full flex-1 flex flex-col items-center justify-center border-b-1 border-white/30 last:border-0"
           >
-            {cliente ? (
+            {cliente && (
               <div className="w-full flex flex-row items-center  gap-[max(0.5vh,0.5vw)] px-[max(2vh,2vw)]  py-[max(2vh,2vw)]">
                 <p className="font-bold text-[max(4vh,2.5vw)] text-shadow ">
                   {formatarHorario(cliente.dataHoraChamada)}
@@ -71,7 +71,7 @@ export default function UltimosChamados({
                   {cliente.nome.toLocaleUpperCase()}
                 </p>
               </div>
-            ) : null}
+            )}
           </motion.div>
         ))}
       </Card>
