@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import LogoCervantes from "@/assets/images/logo-cervantes.jpg";
 import Image from "next/image";
@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 export function useSignalrLogin(idVinculacao: string | null) {
   const router = useRouter();
+  const connectionRef = useRef<HubConnection | null>(null);
 
   useEffect(() => {
     if (!idVinculacao) {
@@ -28,58 +29,60 @@ export function useSignalrLogin(idVinculacao: string | null) {
     }
 
     let connection: HubConnection;
-    let isMounted = true;
 
     async function startConnection() {
       try {
-        if (!isMounted) {
-          return;
+        if (connectionRef.current) {
+          await connectionRef.current.stop();
         }
+
         connection = await connectToHub({
           queryParams: { idVinculacao: idVinculacao as string },
           withoutAccessToken: true,
         });
 
-        // Loga caso a conexão caia
         connection.onclose(() => {
           toast.error("Erro de conexão.");
         });
-
-        // Loga tentativa de reconexão
         connection.onreconnecting(() => {
           toast.warning("Tentando se reconectar...");
         });
-
-        // Loga quando reconecta com sucesso
         connection.onreconnected(() => {
           toast.success("Reconectado com sucesso!");
         });
 
-        connection.on(eventosHubMonitor.Vinculado, async (data) => {
-          const result = authTokensSchema.safeParse(data);
-          if (!result.success) {
-            throw new Error(result.error.message);
-          }
-          const tokens: AuthTokens = result.data;
-          await autenticacaoService.login(tokens);
-          router.push("/monitor");
-        });
+        connection.on(eventosHubMonitor.Vinculado, handleEventoVinculado);
 
         await connection.start();
+        console.log("Conexão iniciada com sucesso!");
       } catch (error) {
-        toast.error("Erro ao fazer vinculação.");
-        await autenticacaoService.logout();
-        router.push("/monitor/login");
+        toast.error("Erro ao iniciar conexão.");
       }
     }
 
     startConnection();
 
     return () => {
-      isMounted = false;
-      if (connection) {
-        connection.stop();
+      if (connectionRef.current) {
+        connectionRef.current.stop();
       }
     };
   }, [idVinculacao]);
+
+  async function handleEventoVinculado(data: any) {
+    try {
+      const result = authTokensSchema.safeParse(data);
+      if (!result.success) {
+        throw new Error(result.error.message);
+      }
+      const tokens: AuthTokens = result.data;
+      await autenticacaoService.login(tokens);
+      toast.success("Vinculado com sucesso!");
+      router.push("/monitor");
+    } catch (error) {
+      toast.error("Erro ao vincular.");
+      await autenticacaoService.logout();
+      router.push("/monitor/login");
+    }
+  }
 }

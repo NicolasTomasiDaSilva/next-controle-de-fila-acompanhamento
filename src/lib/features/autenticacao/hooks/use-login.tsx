@@ -58,7 +58,9 @@ export function useLogin() {
       setIdVinculacao(idVinculacao);
       setCpfCnpj(data.cpfCnpj);
       setCodigo(codigo);
-      setDataExpiracao(dataExpiracao);
+      const expirationDate = new Date();
+      expirationDate.setSeconds(expirationDate.getSeconds() + 5); // Adiciona 5 segundos
+      setDataExpiracao(expirationDate);
       setStep(2);
     } catch (error) {
       toast.error("Ocorreu um erro ao gerar o código.");
@@ -75,8 +77,9 @@ export function useLogin() {
       toast.success("Código gerado com sucesso!");
       setCodigo(codigo);
       setIdVinculacao(idVinculacao);
-
-      setDataExpiracao(dataExpiracao);
+      const expirationDate = new Date();
+      expirationDate.setSeconds(expirationDate.getSeconds() + 5); // Adiciona 5 segundos
+      setDataExpiracao(expirationDate);
       setQrcodeExpirado(false);
     } catch (error) {
       toast.error("Ocorreu um erro ao gerar o código.");
