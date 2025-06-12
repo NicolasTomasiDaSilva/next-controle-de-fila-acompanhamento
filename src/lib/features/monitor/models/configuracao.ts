@@ -46,8 +46,12 @@ export const configuracaoSchema = entidadeSchema.extend({
     max: 500,
     transformarEmNull: true,
   }),
-  corPrimaria: texto({ campo: "Cor Primária", min: 4, max: 9 }),
-  corSobreposicao: texto({ campo: "Cor Sobreposição", min: 4, max: 9 }),
+  corPrimaria: z.string().regex(/^#(?:[0-9a-fA-F]{3}){1,2}$/, {
+    message: "Cor Primária deve estar no formato hexadecimal",
+  }),
+  corSobreposicao: z.string().regex(/^#(?:[0-9a-fA-F]{3}){1,2}$/, {
+    message: "Cor Sobreposicão deve estar no formato hexadecimal",
+  }),
 });
 
 export type Configuracao = z.infer<typeof configuracaoSchema>;
