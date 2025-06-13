@@ -17,5 +17,7 @@ export default async function AppClientePage({ params }: AppUsuarioPageProps) {
     hash: hashTemp,
   });
 
+  console.log(dadosIniciasCliente);
+
   return <AppUsuarioContent dadosIniciasCliente={dadosIniciasCliente} />;
 }

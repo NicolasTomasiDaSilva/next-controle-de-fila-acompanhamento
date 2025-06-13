@@ -56,7 +56,12 @@ export default function AppUsuarioContent({
             <p className="text-[2em] text-center font-bold">
               Sua posição na fila
             </p>
-            <p className="text-[15em] text-center font-extrabold leading-none">
+            <p
+              className="text-[15em] text-center font-extrabold leading-none"
+              style={{
+                color: dadosIniciasCliente.configuracao.corPrimaria,
+              }}
+            >
               7
             </p>
             <p className="text-[1.5em] text-center text-muted-foreground">
@@ -64,9 +69,14 @@ export default function AppUsuarioContent({
             </p>
           </div>
           <div className="flex flex-col gap-[2em]">
-            <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em]">
-              <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 ">
-                <Clock className="!h-[2.5em] !w-[2.5em]" />
+            <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em] rounded-[1em]">
+              <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 rounded-[1em]">
+                <Clock
+                  className="!h-[2.5em] !w-[2.5em]"
+                  style={{
+                    color: dadosIniciasCliente.configuracao.corPrimaria,
+                  }}
+                />
               </Card>
               <div className="flex flex-col">
                 <p className="text-[2em] font-semibold">Tempo já aguardado</p>
@@ -78,9 +88,14 @@ export default function AppUsuarioContent({
                 23 min
               </p>
             </Card>
-            <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em]">
-              <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 ">
-                <Clock className="!h-[2.5em] !w-[2.5em]" />
+            <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em] rounded-[1em]">
+              <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 rounded-[1em] ">
+                <Clock
+                  className="!h-[2.5em] !w-[2.5em]"
+                  style={{
+                    color: dadosIniciasCliente.configuracao.corPrimaria,
+                  }}
+                />
               </Card>
               <div className="flex flex-col">
                 <p className="text-[2em] font-semibold">
@@ -99,13 +114,23 @@ export default function AppUsuarioContent({
         <Card className="px-[2em] w-[48em]">
           <p className="text-[2em] font-bold">Enquanto você espera</p>
           <div className="flex flex-row items-center gap-[1em]">
-            <div className="w-[0.6em] h-[0.6em] rounded-full bg-green-500" />
+            <div
+              className="w-[0.6em] h-[0.6em] rounded-full "
+              style={{
+                backgroundColor: dadosIniciasCliente.configuracao.corPrimaria,
+              }}
+            />
             <p className="text-[1.5em]">
               Você receberá uma mensagem no seu WhatsApp quando chegar sua vez
             </p>
           </div>
           <div className="flex flex-row items-center gap-[1em]">
-            <div className="w-[0.6em] h-[0.6em] rounded-full bg-green-500" />
+            <div
+              className="w-[0.6em] h-[0.6em] rounded-full "
+              style={{
+                backgroundColor: dadosIniciasCliente.configuracao.corPrimaria,
+              }}
+            />
             <p className="text-[1.5em]">
               Você pode desistir da fila se precisar
             </p>
