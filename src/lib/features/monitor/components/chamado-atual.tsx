@@ -17,17 +17,17 @@ interface ChamadoAtualProps {
 export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
   return (
     <div className="h-full flex flex-col  justify-center items-center ">
-      <div className="flex flex-row items-center gap-[max(1vh,1vw)] mb-[max(1vh,1vw)]">
-        <Ticket className="h-[max(3.5vh,2vw)] w-[max(3.5vh,2vw)] icon-shadow" />
+      <div className="flex flex-row items-center gap-[1em] mb-[1em]">
+        <Ticket className="h-[2em] w-[2em] icon-shadow" />
         <p
-          className="text-[max(3vh,1.5vw)]
+          className="text-[1.5em]
       font-extrabold whitespace-nowrap text-shadow"
         >
           CHAMADO ATUAL
         </p>
       </div>
 
-      <Card className="flex-1 w-full rounded-[max(2vh,2vw)] flex flex-col justify-center items-center p-[max(2vh,2vw)] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
+      <Card className="flex-1 w-full rounded-[1.5em] flex flex-col justify-center items-center p-[1em] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
         {ultimosChamados[0]?.nome && (
           <motion.p
             key={ultimosChamados[0].nome}
@@ -35,7 +35,7 @@ export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
             animate="visible"
             variants={animacao}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="text-[max(8vh,5vw)]
+            className="text-[5em]
       font-extrabold text-center leading-snug text-shadow
     "
           >

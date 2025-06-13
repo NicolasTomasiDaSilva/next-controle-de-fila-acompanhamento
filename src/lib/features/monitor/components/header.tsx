@@ -20,22 +20,22 @@ export default function Header() {
 
   return (
     <div
-      className="w-full h-[max(10vh,6vw)] flex flex-row items-center justify-between py-[max(2vh,2vw)] px-[max(2vh,2vw)] shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+      className="w-full h-[6em] flex flex-row items-center justify-between  px-[2em] shadow-[0_0_10px_rgba(0,0,0,0.1)]"
       style={{ backgroundColor: configuracao.corPrimaria }}
     >
       <h1
-        className="text-[max(4vh,3vw)]
+        className="text-[3em]
       font-extrabold whitespace-nowrap text-shadow"
       >
         BANCO DO BRASIL
       </h1>
 
-      <Badge className="h-[max(2vh,2vw)] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[max(1.5vh,1.5vw)] !px-[max(0.75vh,0.75vw)] ">
-        <Clock className="!h-[max(2vh,2vw)] !w-[max(2vh,2vw)] icon-shadow" />
-        <p className="text-[max(2vh,2vw)] text-shadow">
+      <div className="h-[2em] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[1.5em] !px-[1em] ">
+        <Clock className="!h-[2.5em] !w-[2.5em] icon-shadow" />
+        <p className="text-[2em] text-shadow">
           {dataFormatada && dataFormatada}
         </p>
-      </Badge>
+      </div>
     </div>
   );
 }

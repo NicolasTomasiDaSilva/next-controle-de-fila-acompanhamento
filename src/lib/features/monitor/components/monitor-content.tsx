@@ -61,40 +61,45 @@ export default function MonitorContent() {
   }
 
   return (
-    <>
-      <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>
-            <DialogDescription>
-              Isso permitirá que os chamados sejam anunciados com som e voz.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant={"azul"} onClick={liberarSom}>
-              Permitir
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
+    <div className="h-screen w-screen">
       <div
-        className="flex flex-col h-full"
-        style={{
-          backgroundColor: configuracao.corPrimaria,
-          color: configuracao.corSobreposicao,
-        }}
+        className="w-full h-full bg-white rounded-lg overflow-hidden shadow-lg"
+        style={{ fontSize: "min(2vw, 2vh)" }} // Escala proporcional ao tamanho da tela
       >
-        <Header />
-        <div className="flex flex-row flex-1 gap-[max(2.5vh,2.5vw)] py-[max(2.5vh,2.5vw)] px-[max(2.5vh,2.5vw)] pt-[max(1vh,1vw)]">
-          <div className="w-1/2 ">
-            <ChamadoAtual ultimosChamados={ultimosChamados} />
-          </div>
-          <div className="w-1/2 ">
-            <UltimosChamados ultimosChamados={ultimosChamados} />
+        <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>
+              <DialogDescription>
+                Isso permitirá que os chamados sejam anunciados com som e voz.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button variant={"azul"} onClick={liberarSom}>
+                Permitir
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <div
+          className="flex flex-col h-full"
+          style={{
+            backgroundColor: configuracao.corPrimaria,
+            color: configuracao.corSobreposicao,
+          }}
+        >
+          <Header />
+          <div className="flex flex-row flex-1 gap-[max(2.5vh,2.5vw)] py-[max(2.5vh,2.5vw)] px-[max(2.5vh,2.5vw)] pt-[max(1vh,1vw)]">
+            <div className="w-1/2 ">
+              <ChamadoAtual ultimosChamados={ultimosChamados} />
+            </div>
+            <div className="w-1/2 ">
+              <UltimosChamados ultimosChamados={ultimosChamados} />
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
