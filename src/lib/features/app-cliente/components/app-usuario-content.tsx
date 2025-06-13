@@ -11,12 +11,20 @@ import { DadosIniciaisClienteDTO } from "../models/cliente-dados-iniciais";
 import { Clock, LogOut, MapPin } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import BottomSheetDialog from "./botao-desistir";
 
 interface AppUsuarioContentProps {
   dadosIniciasCliente: DadosIniciaisClienteDTO;
 }
 
-//
+//   <Button
+//           variant={"ghost"}
+//           className="!text-[2em] text-accent-foreground hover:text-red-500 mt-[0.5em]"
+//         >
+//           <LogOut className="!h-[1em] !w-[1em] text-accent-foreground hover:text-red-500 text-inherit" />
+//           Desistir da fila
+//         </Button>
+
 export default function AppUsuarioContent({
   dadosIniciasCliente,
 }: AppUsuarioContentProps) {
@@ -136,13 +144,7 @@ export default function AppUsuarioContent({
             </p>
           </div>
         </Card>
-        <Button
-          variant={"ghost"}
-          className="!text-[2em] text-accent-foreground hover:text-red-500 mt-[0.5em]"
-        >
-          <LogOut className="!h-[1em] !w-[1em] text-accent-foreground hover:text-red-500 text-inherit" />
-          Desistir da fila
-        </Button>
+        <BottomSheetDialog />
       </div>
     </div>
   );
