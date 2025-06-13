@@ -63,7 +63,7 @@ export default function MonitorContent() {
   return (
     <div className="h-screen w-screen">
       <div
-        className="w-full h-full bg-white rounded-lg overflow-hidden shadow-lg"
+        className="w-full h-full"
         style={{ fontSize: "min(2vw, 2vh)" }} // Escala proporcional ao tamanho da tela
       >
         <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
