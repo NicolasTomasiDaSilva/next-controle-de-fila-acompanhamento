@@ -27,7 +27,7 @@ export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
         </p>
       </div>
 
-      <Card className="flex-1 w-full rounded-[1.5em] flex flex-col justify-center items-center p-[1em] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
+      <Card className="flex-1 w-full rounded-[1.5em] flex flex-col justify-center items-center p-[4em] shadow-[0_0_10px_rgba(0,0,0,0.1)] border-none">
         {ultimosChamados[0]?.nome && (
           <motion.p
             key={ultimosChamados[0].nome}
@@ -36,7 +36,7 @@ export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
             variants={animacao}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-[5em]
-      font-extrabold text-center leading-snug text-shadow
+      font-extrabold text-center leading-snug text-shadow break-words break-all
     "
           >
             {ultimosChamados[0].nome.toUpperCase()}
