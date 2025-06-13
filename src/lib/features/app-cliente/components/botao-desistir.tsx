@@ -30,11 +30,6 @@ export default function BotaoDesisitir() {
     return () => window.removeEventListener("resize", checkIsMobile);
   }, []);
 
-  function handleConfirm() {
-    console.log("Usuário confirmou saída da fila");
-    setIsOpen(false);
-  }
-
   const trigger = (
     <Button
       variant="ghost"

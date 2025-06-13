@@ -12,18 +12,11 @@ import { Clock, LogOut, MapPin } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BottomSheetDialog from "./botao-desistir";
+import { StatusEnum } from "@/lib/enums/status-enum";
 
 interface AppUsuarioContentProps {
   dadosIniciasCliente: DadosIniciaisClienteDTO;
 }
-
-//   <Button
-//           variant={"ghost"}
-//           className="!text-[2em] text-accent-foreground hover:text-red-500 mt-[0.5em]"
-//         >
-//           <LogOut className="!h-[1em] !w-[1em] text-accent-foreground hover:text-red-500 text-inherit" />
-//           Desistir da fila
-//         </Button>
 
 export default function AppUsuarioContent({
   dadosIniciasCliente,
@@ -60,22 +53,27 @@ export default function AppUsuarioContent({
         </div>
 
         <Card className="px-[2em] w-[48em] ">
-          <div className="flex flex-col gap-[2.5em]">
-            <p className="text-[2em] text-center font-bold">
-              Sua posição na fila
-            </p>
-            <p
-              className="text-[15em] text-center font-extrabold leading-none"
-              style={{
-                color: dadosIniciasCliente.configuracao.corPrimaria,
-              }}
-            >
-              7
-            </p>
-            <p className="text-[1.5em] text-center text-muted-foreground">
-              Atualizado em tempo real
-            </p>
-          </div>
+          {dadosIniciasCliente.cliente.status === StatusEnum.Aguardando ? (
+            <div className="flex flex-col gap-[2.5em] h-[25em] justify-between  bg-red-500">
+              <p className="text-[2em] text-center font-bold">
+                Sua posição na fila
+              </p>
+              <p
+                className="text-[15em] text-center font-extrabold leading-none"
+                style={{
+                  color: dadosIniciasCliente.configuracao.corPrimaria,
+                }}
+              >
+                7
+              </p>
+              <p className="text-[1.5em] text-center text-muted-foreground">
+                Atualizado em tempo real
+              </p>
+            </div>
+          ) : (
+            <div className="h-[25em]"></div>
+          )}
+
           <div className="flex flex-col gap-[2em]">
             <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em] rounded-[1em]">
               <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 rounded-[1em]">
