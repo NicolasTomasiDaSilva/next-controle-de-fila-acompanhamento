@@ -1,4 +1,4 @@
-import AppUsuarioContent from "@/lib/features/app-cliente/components/app-usuario-content";
+import AppClienteContent from "@/lib/features/app-cliente/components/app-cliente-content";
 import { clienteService } from "@/lib/features/app-cliente/services/cliente-service";
 import MonitorContent from "@/lib/features/monitor/components/monitor-content";
 import { ConfiguracaoProvider } from "@/lib/features/monitor/context/configuracao-context";
@@ -12,12 +12,17 @@ interface AppUsuarioPageProps {
 
 export default async function AppClientePage({ params }: AppUsuarioPageProps) {
   const hashTemp =
-    "L1UweVl0WUg2VFRtTHM0OFQ4VVRWendDS2wxTVNHVkw3KzJ4YVl3dEpnNmZzaklL";
+    "eDFmR1htT3FJQmZsRTZpWjVNSGFVQ0tjNVU4SGFZR2hldzhHditQTUZDd2JNdWlq";
   const dadosIniciasCliente = await clienteService.pegarDadosInicias({
     hash: hashTemp,
   });
 
   console.log(dadosIniciasCliente);
 
-  return <AppUsuarioContent dadosIniciasCliente={dadosIniciasCliente} />;
+  return (
+    <AppClienteContent
+      dadosIniciasCliente={dadosIniciasCliente}
+      hash={hashTemp}
+    />
+  );
 }

@@ -17,7 +17,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export default function BotaoDesisitir() {
+export default function BotaoDesisitir({
+  handleDesisitir,
+}: {
+  handleDesisitir: () => void;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -53,7 +57,7 @@ export default function BotaoDesisitir() {
         <Button
           variant="destructive"
           onClick={() => {
-            console.log("Confirmado");
+            handleDesisitir();
             setIsOpen(false);
           }}
         >

@@ -2,6 +2,7 @@ import { api } from "@/lib/api/api";
 
 import axios from "axios";
 import {
+  ClienteFinalDTO,
   DadosIniciaisClienteDTO,
   dadosIniciaisClienteSchema,
 } from "../models/cliente-dados-iniciais";
@@ -23,6 +24,19 @@ export const clienteService = {
           withoutRetry: true,
         }
       )) as DadosIniciaisClienteDTO;
+    } catch (error: any) {
+      throw error;
+    }
+  },
+  async desistir({ hash }: { hash: string }): Promise<ClienteFinalDTO> {
+    try {
+      return (await api.post<ClienteFinalDTO, { hash: string }>(
+        "/clientes/desistir",
+        { hash },
+        {
+          withoutRetry: true,
+        }
+      )) as ClienteFinalDTO;
     } catch (error: any) {
       throw error;
     }
