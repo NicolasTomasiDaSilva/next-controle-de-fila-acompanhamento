@@ -29,6 +29,7 @@ export function useSignalrLogin(idVinculacao: string | null) {
           queryParams: { idVinculacao: idVinculacao as string },
           withoutAccessToken: true,
         });
+        connectionRef.current = connection;
 
         connection.onclose(() => {
           toast.error("Erro de conexão.");
@@ -53,6 +54,7 @@ export function useSignalrLogin(idVinculacao: string | null) {
 
     return () => {
       if (connectionRef.current) {
+        connectionRef.current.off(eventosHubMonitor.Vinculado);
         connectionRef.current.stop();
       }
     };

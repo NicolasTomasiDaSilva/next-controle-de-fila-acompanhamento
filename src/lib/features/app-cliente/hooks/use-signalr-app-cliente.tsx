@@ -29,14 +29,12 @@ export function useSignalrAppCliente({
           queryParams: { hash: hash as string },
           withoutAccessToken: true,
         });
-
         connectionRef.current = connection;
 
         connection.on(
           eventosHubAppCliente.AtualizarCliente,
 
           async (data: any) => {
-            console.log(data);
             const resultado = clienteFinalSchema.safeParse(data.cliente);
 
             if (!resultado.success) {
@@ -68,6 +66,7 @@ export function useSignalrAppCliente({
 
     return () => {
       if (connectionRef.current) {
+        connectionRef.current.off(eventosHubAppCliente.AtualizarCliente);
         connectionRef.current.stop();
       }
     };

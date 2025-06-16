@@ -28,11 +28,14 @@ export function useSignalrFila({
         connectionRef.current = connection;
 
         connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
-          await handleEventoChamarClientes(data);
+          const resultado = dataEventoAcaoClienteSchema.safeParse(data);
+          if (!resultado.success) {
+            throw new Error("Evento recebido inválido.");
+          }
+          await handleEventoChamarClientes(resultado.data);
         });
         connection.on(
           eventosHubMonitor.VoltarParaFilaClientes,
-
           async (data: any) => {
             const resultado = dataEventoAcaoClienteSchema.safeParse(data);
             if (!resultado.success) {
@@ -63,6 +66,8 @@ export function useSignalrFila({
 
     return () => {
       if (connectionRef.current) {
+        connectionRef.current.off(eventosHubMonitor.VoltarParaFilaClientes);
+        connectionRef.current.off(eventosHubMonitor.ChamarClientes);
         connectionRef.current.stop();
       }
     };
