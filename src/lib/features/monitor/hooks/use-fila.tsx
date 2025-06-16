@@ -21,6 +21,35 @@ export function useFila() {
 
   const { fila, setFila } = context;
 
+  const nomesParaFalar = useRef<string[]>([]);
+  const falando = useRef(false);
+
+  async function processarFilaDeFala() {
+    if (falando.current) return; // já está falando
+
+    const proximoNome = nomesParaFalar.current.shift();
+    if (!proximoNome) return; // fila vazia
+
+    falando.current = true;
+    try {
+      await falarNome(proximoNome);
+    } catch (error) {
+      console.error("Erro ao falar nome:", error);
+    } finally {
+      falando.current = false;
+      // Processa próximo da fila
+      if (nomesParaFalar.current.length > 0) {
+        processarFilaDeFala();
+      }
+    }
+  }
+
+  // Função para enfileirar nome e iniciar processamento
+  function enqueueFalarNome(nome: string) {
+    nomesParaFalar.current.push(nome);
+    processarFilaDeFala();
+  }
+
   const ultimosChamados = useMemo(() => {
     const chamados = fila.clientes.filter(
       (cliente) => cliente.status === StatusEnum.Chamado
@@ -29,59 +58,19 @@ export function useFila() {
     return ordenarPorDataHora<Cliente>(chamados, "dataHoraChamada", "desc");
   }, [fila.clientes]);
 
-  const filaDeChamada = useRef<Cliente[]>([]);
-
   async function handleEventoVoltarClientes(data: DataEventoAcaoClienteDTO) {
-    const { clientesAcao } = data;
-    const idsParaVoltar = new Set(clientesAcao.map((c) => c.id));
-
-    filaDeChamada.current = filaDeChamada.current.filter(
-      (cliente) => !idsParaVoltar.has(cliente.id)
-    );
-    setFila((filaAnterior) => ({
-      ...filaAnterior,
-      clientes: filaAnterior.clientes.filter(
-        (cliente) => !idsParaVoltar.has(cliente.id)
-      ),
-    }));
+    const { fila: filaAtualizada } = data;
+    setFila(filaAtualizada);
   }
 
   async function handleEventoChamarClientes(data: DataEventoAcaoClienteDTO) {
-    const { clientesAcao } = data;
-    const novaFila = [...filaDeChamada.current, ...clientesAcao];
-
-    filaDeChamada.current = ordenarPorDataHora<Cliente>(
-      novaFila,
-      "dataHoraChamada",
-      "asc"
-    );
-  }
-
-  function chamarProximoCliente() {
-    if (filaDeChamada.current.length === 0) {
-      return;
+    const { fila: filaAtualizada, clientesAcao: clientesChamados } = data;
+    setFila(filaAtualizada);
+    const cliente: Cliente = clientesChamados[0];
+    if (cliente) {
+      enqueueFalarNome(cliente.nome);
     }
-
-    const proximoCliente = filaDeChamada.current[0];
-
-    filaDeChamada.current = filaDeChamada.current.slice(1);
-
-    falarNome(proximoCliente.nome);
-    setFila((filaAnterior) => {
-      return {
-        ...filaAnterior,
-        clientes: [...filaAnterior.clientes, proximoCliente],
-      };
-    });
   }
-
-  useEffect(() => {
-    const intervalo = setInterval(() => {
-      chamarProximoCliente();
-    }, 5000);
-
-    return () => clearInterval(intervalo);
-  }, []);
 
   return {
     handleEventoChamarClientes,

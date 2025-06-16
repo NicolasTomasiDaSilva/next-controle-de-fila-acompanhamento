@@ -3,17 +3,23 @@ export async function falarNome(nome: string) {
 
   const audio = new Audio("/sounds/beep.mp3");
 
-  // Aguarda o som tocar antes de falar
+  // Espera o beep tocar
   await new Promise((resolve) => {
     audio.addEventListener("ended", resolve);
     audio.play();
   });
 
-  const mensagem = new SpeechSynthesisUtterance(nome);
-  mensagem.lang = "pt-BR";
-  mensagem.rate = 1;
-  mensagem.pitch = 1;
-  mensagem.volume = 1;
+  // Cria promise para o speechSynthesis
+  await new Promise<void>((resolve) => {
+    const mensagem = new SpeechSynthesisUtterance(nome);
+    mensagem.lang = "pt-BR";
+    mensagem.rate = 1;
+    mensagem.pitch = 1;
+    mensagem.volume = 1;
 
-  window.speechSynthesis.speak(mensagem);
+    mensagem.onend = () => resolve();
+    mensagem.onerror = () => resolve(); // evita travar em erro
+
+    window.speechSynthesis.speak(mensagem);
+  });
 }
