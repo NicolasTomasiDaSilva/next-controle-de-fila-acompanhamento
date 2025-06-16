@@ -26,7 +26,7 @@ export async function connectToHub({
 
   const connection = new HubConnectionBuilder()
     .withUrl(url)
-    .withAutomaticReconnect()
+    .withAutomaticReconnect([0, 2000, 5000])
     .build();
 
   return connection;
