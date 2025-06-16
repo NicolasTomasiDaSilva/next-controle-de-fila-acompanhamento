@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function MonitorContent() {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 h-full max-w-xl mx-auto">
+    <div className="flex-1 flex flex-col items-center justify-center gap-10 max-w-xl mx-auto">
       <div className="flex flex-col items-center gap-4">
         <Image
           src={LogoCervantes}
