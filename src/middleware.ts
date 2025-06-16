@@ -12,7 +12,7 @@ import { tokensCookiesParams } from "./lib/utils/tokens-cookies-params";
 
 const publicRoutes = [
   { path: "/monitor/login", whenAuthenticated: "redirect" },
-  { path: "/app-cliente", whenAuthenticated: "ignore" },
+  { path: "/app-cliente/:hash", whenAuthenticated: "ignore" },
   { path: "/teste", whenAuthenticated: "ignore" },
 ] as const;
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/monitor/login";
@@ -21,7 +21,7 @@ const REDIRECT_WHEN_AUTHENTICATED_ROUTE = "/monitor";
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   try {
     const { pathname } = req.nextUrl;
-    const publicRoute = publicRoutes.find((route) => route.path === pathname);
+    const publicRoute = isPublicRoute(pathname);
     const cookieStore = await cookies();
     const accessTokenStored = cookieStore.get("accessToken")?.value;
     const refreshTokenStored = cookieStore.get("refreshToken")?.value;
@@ -85,3 +85,17 @@ export const config: MiddlewareConfig = {
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
+
+function isPublicRoute(
+  pathname: string
+): (typeof publicRoutes)[number] | undefined {
+  return publicRoutes.find((route) => {
+    if (route.path.includes(":")) {
+      const regexPath = new RegExp(
+        "^" + route.path.replace(/:[^\/]+/g, "[^/]+") + "$"
+      );
+      return regexPath.test(pathname);
+    }
+    return route.path === pathname;
+  });
+}

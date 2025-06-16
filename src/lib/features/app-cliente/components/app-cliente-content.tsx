@@ -50,30 +50,31 @@ export default function AppClienteContent({
           background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, transparent 80%)`,
         }}
       >
-        <div className="flex flex-col items-center gap-[1.5em]">
-          {configuracao.logoUrl && (
-            <Image
-              src={configuracao.logoUrl}
-              width={100}
-              height={100}
-              alt="Logo"
-              className="rounded-md object-cover w-[10em] h-[10em] "
-              priority
-            />
-          )}
+        <Card className="px-[2em] w-[48em]">
+          <div className="flex flex-col items-center gap-[1em]">
+            <p className="text-[3em]  font-extrabold leading-none">
+              {configuracao.nomeDisplay}
+            </p>
+            {configuracao.logoUrl && (
+              <Image
+                src={
+                  "https://avatars.githubusercontent.com/u/198528008?s=400&u=42dc338b18eeb77486dbe5a3c816808528c7d736&v=4"
+                }
+                width={100}
+                height={100}
+                alt="Logo"
+                className="rounded-md object-cover w-[10em] h-[10em] bg-red-500"
+                priority
+              />
+            )}
 
-          <div className="flex flex-col items-center gap-[0.5em]">
-            <p className="text-[3em]  font-bold leading-none">Beira Rio</p>
             <div className="flex flex-row items-center justify-center gap-[0.5em]">
               <MapPin className="!h-[2em] !w-[2em]" />
-              <p className="text-[2em]  font-bold leading-none">
+              <p className="text-[2em]  leading-none">
                 {configuracao.enderecoDisplay}
               </p>
             </div>
           </div>
-        </div>
-
-        <Card className="px-[2em] w-[48em] ">
           <div className="flex flex-col gap-[2.5em] h-[25em] justify-between ">
             {cliente.status === StatusEnum.Aguardando && (
               <>
