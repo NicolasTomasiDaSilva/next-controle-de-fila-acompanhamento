@@ -11,16 +11,14 @@ interface AppUsuarioPageProps {
 }
 
 export default async function AppClientePage({ params }: AppUsuarioPageProps) {
+  const hash = params?.hash;
   const dadosIniciasCliente = await clienteService.pegarDadosInicias({
-    hash: params.hash,
+    hash: hash,
   });
 
   console.log(dadosIniciasCliente);
 
   return (
-    <AppClienteContent
-      dadosIniciasCliente={dadosIniciasCliente}
-      hash={params.hash}
-    />
+    <AppClienteContent dadosIniciasCliente={dadosIniciasCliente} hash={hash} />
   );
 }
