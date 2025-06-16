@@ -11,10 +11,8 @@ interface AppUsuarioPageProps {
 }
 
 export default async function AppClientePage({ params }: AppUsuarioPageProps) {
-  const hashTemp =
-    "eDFmR1htT3FJQmZsRTZpWjVNSGFVQ0tjNVU4SGFZR2hldzhHditQTUZDd2JNdWlq";
   const dadosIniciasCliente = await clienteService.pegarDadosInicias({
-    hash: hashTemp,
+    hash: params.hash,
   });
 
   console.log(dadosIniciasCliente);
@@ -22,7 +20,7 @@ export default async function AppClientePage({ params }: AppUsuarioPageProps) {
   return (
     <AppClienteContent
       dadosIniciasCliente={dadosIniciasCliente}
-      hash={hashTemp}
+      hash={params.hash}
     />
   );
 }
