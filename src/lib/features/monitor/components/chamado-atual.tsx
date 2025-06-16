@@ -16,7 +16,7 @@ interface ChamadoAtualProps {
 }
 export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
   return (
-    <div className="h-full flex flex-col  justify-center items-center ">
+    <div className="h-full w-full flex flex-col  justify-center items-center ">
       <div className="flex flex-row items-center gap-[1em] mb-[1em]">
         <Ticket className="h-[2em] w-[2em] icon-shadow" />
         <p
@@ -36,7 +36,7 @@ export default function ChamadoAtual({ ultimosChamados }: ChamadoAtualProps) {
             variants={animacao}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-[5em]
-      font-extrabold text-center leading-snug text-shadow break-words break-all
+      font-extrabold text-center leading-snug text-shadow break-words 
     "
           >
             {ultimosChamados[0].nome.toUpperCase()}

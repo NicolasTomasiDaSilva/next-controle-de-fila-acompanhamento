@@ -31,7 +31,7 @@ export default function UltimosChamados({
   }, [ultimosChamados]);
 
   return (
-    <div className="  h-full flex flex-col  justify-center items-center ">
+    <div className=" h-full w-full flex flex-col  justify-center items-center ">
       <div className="flex flex-row items-center gap-[1em] mb-[1em]">
         <CircleCheck className="h-[2em] w-[2em] icon-shadow" />
         <p
@@ -44,7 +44,7 @@ export default function UltimosChamados({
       </div>
 
       <Card
-        className="flex-1 w-full rounded-[1.5em]  border-none items-start justify-evenly px-[1em] text-inherit gap-0 space-y-0  py-0 shadow-none shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+        className="flex-1 w-full rounded-[1.5em]  border-none items-start justify-evenly px-[1em] text-inherit gap-0 space-y-0  py-0 shadow-none shadow-[0_0_10px_rgba(0,0,0,0.1)] "
         style={{
           backgroundColor: lightenColor(configuracao.corPrimaria, 5),
         }}

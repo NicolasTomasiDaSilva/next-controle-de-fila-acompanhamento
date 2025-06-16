@@ -90,11 +90,11 @@ export default function MonitorContent() {
           }}
         >
           <Header />
-          <div className="flex flex-row flex-1 gap-[max(2.5vh,2.5vw)] py-[max(2.5vh,2.5vw)] px-[max(2.5vh,2.5vw)] pt-[max(1vh,1vw)]">
-            <div className="w-1/2 ">
+          <div className="w-full flex flex-row flex-1 gap-[1.5em] py-[2em] px-[2em] pt-[1em]">
+            <div className="w-1/2 overflow-hidden">
               <ChamadoAtual ultimosChamados={ultimosChamados} />
             </div>
-            <div className="w-1/2 ">
+            <div className="w-1/2 overflow-hidden">
               <UltimosChamados ultimosChamados={ultimosChamados} />
             </div>
           </div>
