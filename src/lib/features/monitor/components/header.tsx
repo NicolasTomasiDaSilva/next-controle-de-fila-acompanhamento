@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import formatarData from "@/lib/utils/formatar-data";
 import { Clock } from "lucide-react";
 import { useConfiguracao } from "../hooks/use-configuracao";
+import Image from "next/image";
 
 import { useEffect, useState } from "react";
 
@@ -20,19 +21,30 @@ export default function Header() {
 
   return (
     <div
-      className="w-full h-[6em] flex flex-row items-center justify-between  px-[2em] shadow-[0_0_10px_rgba(0,0,0,0.1)]"
+      className="w-full h-[6em] flex flex-row items-center justify-between  px-[2em] shadow-[0_0_10px_rgba(0,0,0,0.1)] gap-[1em] "
       style={{ backgroundColor: configuracao.corPrimaria }}
     >
+      {configuracao.logoUrl && (
+        <Image
+          src={configuracao.logoUrl}
+          width={100}
+          height={100}
+          alt="Logo"
+          className="rounded-md object-cover w-[4em] h-[4em] "
+          priority
+        />
+      )}
+
       <h1
         className="text-[3em]
-      font-extrabold whitespace-nowrap text-shadow"
+      font-extrabold whitespace-nowrap text-shadow text-ellipsis overflow-hidden "
       >
-        BANCO DO BRASIL
+        {configuracao.nomeDisplay.toLocaleUpperCase()}
       </h1>
 
-      <div className="h-[2em] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[1.5em] !px-[1em] ">
-        <Clock className="!h-[2.5em] !w-[2.5em] icon-shadow" />
-        <p className="text-[2em] text-shadow">
+      <div className="h-[2em] rounded-full bg-black/5 flex flex-row items-center gap-2 !py-[1.5em] !px-[1em] ml-auto ">
+        <Clock className="!h-[2em] !w-[2em] icon-shadow" />
+        <p className="text-[2em] text-shadow whitespace-nowrap">
           {dataFormatada && dataFormatada}
         </p>
       </div>

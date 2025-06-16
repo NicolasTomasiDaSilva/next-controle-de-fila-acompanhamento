@@ -51,16 +51,17 @@ export default function AppClienteContent({
         }}
       >
         <div className="flex flex-col items-center gap-[1.5em]">
-          <Image
-            src={
-              "https://avatars.githubusercontent.com/u/198528008?s=400&u=42dc338b18eeb77486dbe5a3c816808528c7d736&v=4"
-            }
-            width={100}
-            height={100}
-            alt="Logo"
-            className="rounded-md object-cover w-[10em] h-[10em] "
-            priority
-          />
+          {configuracao.logoUrl && (
+            <Image
+              src={configuracao.logoUrl}
+              width={100}
+              height={100}
+              alt="Logo"
+              className="rounded-md object-cover w-[10em] h-[10em] "
+              priority
+            />
+          )}
+
           <div className="flex flex-col items-center gap-[0.5em]">
             <p className="text-[3em]  font-bold leading-none">Beira Rio</p>
             <div className="flex flex-row items-center justify-center gap-[0.5em]">
