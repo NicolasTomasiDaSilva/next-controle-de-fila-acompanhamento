@@ -21,15 +21,34 @@ export function useSignalrAppCliente({
   handleEventoAtualizarCliente,
 }: useSignalrFilaProps) {
   const connectionRef = useRef<HubConnection | null>(null);
+  const isReconnecting = useRef(false);
 
   useEffect(() => {
     async function startConnection({ hash }: { hash: string }) {
       try {
+        if (connectionRef.current) {
+          await connectionRef.current.stop();
+        }
         const connection = await connectToHub({
           queryParams: { hash: hash as string },
           withoutAccessToken: true,
         });
         connectionRef.current = connection;
+
+        connection.onclose((error) => {
+          if (isReconnecting.current) {
+            toast.error("Conexão perdida. Não foi possível reconectar.");
+          }
+        });
+
+        connection.onreconnecting(() => {
+          isReconnecting.current = true;
+          toast.warning("Tentando se reconectar...");
+        });
+        connection.onreconnected(() => {
+          isReconnecting.current = false;
+          toast.success("Reconectado com sucesso!");
+        });
 
         connection.on(
           eventosHubAppCliente.AtualizarCliente,
@@ -45,20 +64,7 @@ export function useSignalrAppCliente({
           }
         );
 
-        connection.onclose((error) => {
-          if (error) {
-            toast.error("Erro de conexão.");
-          }
-        });
-        connection.onreconnecting(() => {
-          toast.warning("Tentando se reconectar...");
-        });
-        connection.onreconnected(() => {
-          toast.success("Reconectado com sucesso!");
-        });
-
         await connection.start();
-        console.log("Conexão iniciada com sucesso!");
       } catch (error) {
         toast.error("Erro ao iniciar conexão.");
       }

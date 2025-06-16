@@ -20,12 +20,32 @@ export function useSignalrFila({
   handleEventoVoltarClientes,
 }: useSignalrFilaProps) {
   const connectionRef = useRef<HubConnection | null>(null);
+  const isReconnecting = useRef(false);
 
   useEffect(() => {
     async function startConnection() {
       try {
+        if (connectionRef.current) {
+          await connectionRef.current.stop();
+        }
+
         const connection = await connectToHub();
         connectionRef.current = connection;
+
+        connection.onclose((error) => {
+          if (isReconnecting.current) {
+            toast.error("Conexão perdida. Não foi possível reconectar.");
+          }
+        });
+
+        connection.onreconnecting(() => {
+          isReconnecting.current = true;
+          toast.warning("Tentando se reconectar...");
+        });
+        connection.onreconnected(() => {
+          isReconnecting.current = false;
+          toast.success("Reconectado com sucesso!");
+        });
 
         connection.on(eventosHubMonitor.ChamarClientes, async (data) => {
           const resultado = dataEventoAcaoClienteSchema.safeParse(data);
@@ -45,20 +65,7 @@ export function useSignalrFila({
           }
         );
 
-        connection.onclose((error) => {
-          if (error) {
-            toast.error("Erro de conexão.");
-          }
-        });
-        connection.onreconnecting(() => {
-          toast.warning("Tentando se reconectar...");
-        });
-        connection.onreconnected(() => {
-          toast.success("Reconectado com sucesso!");
-        });
-
         await connection.start();
-        console.log("Conexão iniciada com sucesso!");
       } catch (error) {
         toast.error("Erro ao iniciar conexão.");
       }

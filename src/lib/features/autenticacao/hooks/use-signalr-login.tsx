@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 export function useSignalrLogin(idVinculacao: string | null) {
   const router = useRouter();
   const connectionRef = useRef<HubConnection | null>(null);
+  const isReconnecting = useRef(false);
 
   useEffect(() => {
     if (!idVinculacao) {
@@ -32,21 +33,23 @@ export function useSignalrLogin(idVinculacao: string | null) {
         connectionRef.current = connection;
 
         connection.onclose((error) => {
-          if (error) {
-            toast.error("Erro de conexão.");
+          if (isReconnecting.current) {
+            toast.error("Conexão perdida. Não foi possível reconectar.");
           }
         });
+
         connection.onreconnecting(() => {
+          isReconnecting.current = true;
           toast.warning("Tentando se reconectar...");
         });
         connection.onreconnected(() => {
+          isReconnecting.current = false;
           toast.success("Reconectado com sucesso!");
         });
 
         connection.on(eventosHubMonitor.Vinculado, handleEventoVinculado);
 
         await connection.start();
-        console.log("Conexão iniciada com sucesso!");
       } catch (error) {
         toast.error("Erro ao iniciar conexão.");
       }
