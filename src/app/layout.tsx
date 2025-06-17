@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-t from-blue-100/50 to-transparent antialiased flex-col flex`}
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} antialiased min-h-screen h-auto bg-gradient-to-t from-blue-100/50 to-transparent antialiased flex-col flex`}
       >
         {children}
         <Toaster
