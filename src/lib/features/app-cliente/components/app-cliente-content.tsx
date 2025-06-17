@@ -44,14 +44,14 @@ export default function AppClienteContent({
   const minutos = useTempoDecorrido(dadosIniciasCliente.cliente.dataHoraCriado);
   return (
     <div
-      className=" flex-1 flex h-full flex-col justify-start items-center gap-[2em] py-[3em] "
+      className=" flex-1 flex h-full flex-col justify-start items-center gap-[2em] py-[3em] px-[2em] "
       style={{
         fontSize: "min(2vw, 0.9vh)",
         backgroundImage: "none",
         background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, white 100%)`,
       }}
     >
-      <Card className="px-[2em] w-[48em]">
+      <Card className="px-[2em] w-full">
         <div className="flex flex-col items-center gap-[1em]">
           <p className="text-[3em]  font-extrabold leading-none">
             {configuracao.nomeDisplay}
@@ -171,7 +171,7 @@ export default function AppClienteContent({
           </Card>
         </div>
       </Card>
-      <Card className="px-[2em] w-[48em]">
+      <Card className="px-[2em] w-full">
         <p className="text-[2em] font-bold">Enquanto você espera</p>
         <div className="flex flex-row items-center gap-[1em]">
           <div
