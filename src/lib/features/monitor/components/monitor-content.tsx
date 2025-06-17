@@ -54,49 +54,46 @@ export default function MonitorContent() {
       );
       utterance.lang = "pt-BR";
       window.speechSynthesis.speak(utterance);
-      toast.success("Notificações sonoras ativadas.");
     } catch (err) {
       toast.error("Erro ao ativar notificações sonoras.");
     }
   }
 
   return (
-    <div className="h-screen w-screen">
-      <div
-        className="w-full h-full"
-        style={{ fontSize: "min(2vw, 2vh)" }} // Escala proporcional ao tamanho da tela
-      >
-        <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
-          <DialogContent className="max-w-md">
-            <DialogHeader>
-              <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>
-              <DialogDescription>
-                Isso permitirá que os chamados sejam anunciados com som e voz.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <Button variant={"azul"} onClick={liberarSom}>
-                Permitir
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+    <div
+      className="flex-1 flex flex-col  justify-center "
+      style={{ fontSize: "min(2vh, 1vw)" }}
+    >
+      <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>
+            <DialogDescription>
+              Isso permitirá que os chamados sejam anunciados com som e voz.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant={"azul"} onClick={liberarSom}>
+              Permitir
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-        <div
-          className="flex flex-col h-full"
-          style={{
-            backgroundColor: configuracao.corPrimaria,
-            color: configuracao.corSobreposicao,
-          }}
-        >
-          <Header />
-          <div className="w-full flex flex-row flex-1 gap-[1.5em] py-[2em] px-[2em] pt-[1em]">
-            <div className="w-1/2 overflow-hidden">
-              <ChamadoAtual ultimosChamados={ultimosChamados} />
-            </div>
-            <div className="w-1/2 overflow-hidden">
-              <UltimosChamados ultimosChamados={ultimosChamados} />
-            </div>
+      <div
+        className="flex-1 flex flex-col h-full"
+        style={{
+          backgroundColor: configuracao.corPrimaria,
+          color: configuracao.corSobreposicao,
+        }}
+      >
+        <Header />
+        <div className="w-full flex flex-row flex-1 gap-[1.5em] py-[2em] px-[2em] pt-[1em]">
+          <div className="w-1/2 overflow-hidden">
+            <ChamadoAtual ultimosChamados={ultimosChamados} />
+          </div>
+          <div className="w-1/2 overflow-hidden">
+            <UltimosChamados ultimosChamados={ultimosChamados} />
           </div>
         </div>
       </div>

@@ -44,9 +44,9 @@ export default function AppClienteContent({
   const minutos = useTempoDecorrido(dadosIniciasCliente.cliente.dataHoraCriado);
   return (
     <div
-      className=" flex-1 flex flex-col items-center justify-center "
+      className="flex-1 flex flex-col items-center justify-center"
       style={{
-        fontSize: "min(1vh, 2.2vw)",
+        fontSize: "min(1vh, 2vw)",
         backgroundImage: "none",
         background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, white 100%)`,
       }}
