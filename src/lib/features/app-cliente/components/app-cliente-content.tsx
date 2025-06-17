@@ -88,7 +88,7 @@ export default function AppClienteContent({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className={`font-(family-name:--font-geist-sans)  text-center font-extrabold leading-none`}
+                    className={`font-(family-name:--font-geist-sans) text-[15em]  text-center font-extrabold leading-none`}
                     style={{
                       color: configuracao.corPrimaria,
                     }}
