@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: false,
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
 };
 
 export default nextConfig;
