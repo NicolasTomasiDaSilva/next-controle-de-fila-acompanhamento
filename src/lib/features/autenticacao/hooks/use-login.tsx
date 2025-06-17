@@ -54,7 +54,6 @@ export function useLogin() {
       setIsSubmitting(true);
       const { codigo, dataExpiracao, idVinculacao } =
         await vinculacaoService.gerarCodigoVinculacao(data.cpfCnpj);
-      toast.success("Código gerado com sucesso!");
       setIdVinculacao(idVinculacao);
       setCpfCnpj(data.cpfCnpj);
       setCodigo(codigo);
@@ -72,7 +71,6 @@ export function useLogin() {
       setIsSubmitting(true);
       const { codigo, dataExpiracao, idVinculacao } =
         await vinculacaoService.gerarCodigoVinculacao(cpfCnpj);
-      toast.success("Código gerado com sucesso!");
       setCodigo(codigo);
       setIdVinculacao(idVinculacao);
       setDataExpiracao(dataExpiracao);

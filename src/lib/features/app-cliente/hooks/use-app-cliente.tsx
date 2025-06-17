@@ -32,7 +32,6 @@ export default function useAppCliente({
       const clienteAtualizado = await clienteService.desistir({ hash });
       setCliente(clienteAtualizado);
       setVersaoCliente(versaoCliente + 1);
-      toast.success("Desistido com sucesso!");
     } catch (error) {
       toast.error("Erro ao desistir.");
     }

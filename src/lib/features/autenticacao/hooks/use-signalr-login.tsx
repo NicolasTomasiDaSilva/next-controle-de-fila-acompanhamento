@@ -73,7 +73,6 @@ export function useSignalrLogin(idVinculacao: string | null) {
       }
       const tokens: AuthTokens = result.data;
       await autenticacaoService.login(tokens);
-      toast.success("Vinculado com sucesso!");
       router.push("/monitor");
     } catch (error) {
       toast.error("Erro ao vincular.");
