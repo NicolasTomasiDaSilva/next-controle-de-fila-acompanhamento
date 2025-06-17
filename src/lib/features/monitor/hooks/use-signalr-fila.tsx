@@ -10,14 +10,23 @@ import {
   DataEventoAcaoClienteDTO,
   dataEventoAcaoClienteSchema,
 } from "../models/data-evento-acao-admin";
+import { Configuracao, configuracaoSchema } from "../models/configuracao";
+import {
+  dataEventoAtualizarConfiguracaoDTO,
+  dataEventoAtualizarConfiguracaoSchema,
+} from "../models/data-evento-atualizar-configuracao";
 
 interface useSignalrFilaProps {
   handleEventoChamarClientes: (data: DataEventoAcaoClienteDTO) => Promise<void>;
   handleEventoVoltarClientes: (data: DataEventoAcaoClienteDTO) => Promise<void>;
+  handleEventoAtualizarConfiguracao: (
+    data: dataEventoAtualizarConfiguracaoDTO
+  ) => Promise<void>;
 }
 export function useSignalrFila({
   handleEventoChamarClientes,
   handleEventoVoltarClientes,
+  handleEventoAtualizarConfiguracao,
 }: useSignalrFilaProps) {
   const connectionRef = useRef<HubConnection | null>(null);
   const isReconnecting = useRef(false);
@@ -62,6 +71,17 @@ export function useSignalrFila({
               throw new Error("Evento recebido inválido.");
             }
             await handleEventoVoltarClientes(resultado.data);
+          }
+        );
+        connection.on(
+          eventosHubMonitor.AtualizarConfiguracoes,
+          async (data: any) => {
+            const resultado =
+              dataEventoAtualizarConfiguracaoSchema.safeParse(data);
+            if (!resultado.success) {
+              throw new Error("Evento recebido inválido.");
+            }
+            await handleEventoAtualizarConfiguracao(resultado.data);
           }
         );
 

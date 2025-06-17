@@ -22,13 +22,17 @@ import { toast } from "sonner";
 export default function MonitorContent() {
   const [audioLiberado, setAudioLiberado] = useState(false);
   const [mostrarDialog, setMostrarDialog] = useState(false);
-  const { configuracao } = useConfiguracao();
+  const { configuracao, handleEventoAtualizarConfiguracao } = useConfiguracao();
   const {
     ultimosChamados,
     handleEventoChamarClientes,
     handleEventoVoltarClientes,
   } = useFila();
-  useSignalrFila({ handleEventoChamarClientes, handleEventoVoltarClientes });
+  useSignalrFila({
+    handleEventoChamarClientes,
+    handleEventoVoltarClientes,
+    handleEventoAtualizarConfiguracao,
+  });
 
   useEffect(() => {
     // Abre o dialog imediatamente
