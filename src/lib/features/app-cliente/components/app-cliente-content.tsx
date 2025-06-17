@@ -44,14 +44,14 @@ export default function AppClienteContent({
   const minutos = useTempoDecorrido(dadosIniciasCliente.cliente.dataHoraCriado);
   return (
     <div
-      className=" flex-1  "
+      className=" flex-1 flex flex-col items-center justify-center "
       style={{
         fontSize: "min(1vh, 2.2vw)",
         backgroundImage: "none",
         background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, white 100%)`,
       }}
     >
-      <div className="flex  flex-col justify-start items-center gap-[1.5em]  p-[2em] max-w-[75em] mx-auto">
+      <div className="flex  flex-col justify-center items-center gap-[1.5em]  p-[2em] max-w-[75em] ">
         <Card className="px-[2em] w-full">
           <div className="flex flex-col items-center gap-[1em]">
             <p className="text-[3em]  font-extrabold leading-none">
