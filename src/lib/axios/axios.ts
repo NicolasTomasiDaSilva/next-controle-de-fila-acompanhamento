@@ -10,12 +10,13 @@ import axios, {
 import { ZodSchema } from "zod";
 
 import saveTokensAction from "@/features/autenticacao/actions/cookies/save-tokens-action";
+
+import isServer from "../utils/is-server";
+import { UnauthenticatedError } from "../errors/errors";
 import {
   AuthTokens,
   authTokensSchema,
-} from "../features/autenticacao/models/auth-tokens";
-import isServer from "../utils/is-server";
-import { UnauthenticatedError } from "../errors/errors";
+} from "@/features/autenticacao/models/auth-tokens";
 
 export const api = {
   get: get,

@@ -1,4 +1,4 @@
-import { AuthTokens } from "@/lib/features/autenticacao/models/auth-tokens";
+import { AuthTokens } from "@/features/autenticacao/models/auth-tokens";
 import { tokensCookiesParams } from "@/lib/utils/jwt-utils";
 
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";

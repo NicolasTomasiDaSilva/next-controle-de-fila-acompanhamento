@@ -5,7 +5,7 @@ import LogoCervantes from "@/assets/images/logo-cervantes.jpg";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-export default function MonitorContent() {
+export default function LoginContent() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-10 max-w-xl mx-auto">
       <div className="flex flex-col items-center gap-4">

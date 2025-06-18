@@ -1,5 +1,5 @@
-import AppClienteContent from "@/lib/features/app-cliente/components/app-cliente-content";
-import { clienteService } from "@/lib/features/app-cliente/services/cliente-service";
+import AppClienteContent from "@/features/app-cliente/components/app-cliente-content";
+import { clienteService } from "@/features/app-cliente/services/cliente-service";
 
 interface AppUsuarioPageProps {
   params: { hash: string };

@@ -7,9 +7,10 @@ import { cookies } from "next/headers";
 import { refreshToken } from "./lib/axios/axios";
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { jwtIsValid } from "./lib/utils/jwt-utils";
-import { AuthTokens } from "./lib/features/autenticacao/models/auth-tokens";
+
 import { tokensCookiesParams } from "./lib/utils/jwt-utils";
 import { UnauthenticatedError } from "./lib/errors/errors";
+import { AuthTokens } from "./features/autenticacao/models/auth-tokens";
 
 const publicRoutes = [
   { path: "/monitor/login", whenAuthenticated: "redirect" },
