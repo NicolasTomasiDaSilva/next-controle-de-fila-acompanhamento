@@ -103,14 +103,16 @@ export function axiosInstance({
           originalRequest.headers[
             "Authorization"
           ] = `Bearer ${tokens.accessToken}`;
-          console.log("REFRESH TOKEN FEITO COM SUCESSO");
+
           processQueue(null, tokens.accessToken);
           return instance(originalRequest);
-        } catch (err) {
-          console.log(err);
-          console.log("ERRO AO FAZER REFRESH TOKEN");
-          processQueue(err, null);
-          return Promise.reject(err);
+        } catch (error: any) {
+          processQueue(error, null);
+          if (error instanceof UnauthenticatedError) {
+            await logout();
+          } else {
+            return Promise.reject(error);
+          }
         } finally {
           isRefreshing = false;
         }
@@ -181,7 +183,6 @@ async function request<TResponse = any, TData = any>({
     if (schema) {
       const resultado = schema.safeParse(response.data);
       if (!resultado.success) {
-        console.error("Erro de validação com Zod:", resultado.error);
         throw new Error("Resposta da API inválida.");
       }
 
@@ -192,7 +193,6 @@ async function request<TResponse = any, TData = any>({
 
     return rawResponse ? response : response.data;
   } catch (error) {
-    console.error("Erro na requisição:", error);
     if (isAxiosError(error)) {
       throw error;
     }
@@ -282,5 +282,14 @@ export async function refreshToken(refreshToken: string): Promise<AuthTokens> {
       throw new UnauthenticatedError();
     }
     throw error;
+  }
+}
+
+export async function logout(): Promise<void> {
+  await fetch("/api/autenticacao/logout", {
+    method: "POST",
+  });
+  if (!isServer()) {
+    window.location.href = "/login";
   }
 }
