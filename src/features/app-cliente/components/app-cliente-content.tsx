@@ -44,7 +44,6 @@ export default function AppClienteContent({
     fila,
     handleEventoAtualizarCliente,
     handleDesisitir,
-    versaoCliente,
   } = useAppCliente({ dadosIniciasCliente, hash });
 
   useSignalrAppCliente({
@@ -96,7 +95,7 @@ export default function AppClienteContent({
                   </p>
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={versaoCliente}
+                      key={cliente.posicao}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -119,7 +118,7 @@ export default function AppClienteContent({
                 <AnimatePresence mode="wait">
                   <motion.div
                     className="mx-auto my-auto text-[3.5em] text-center font-bold"
-                    key={versaoCliente}
+                    key={cliente.status}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}

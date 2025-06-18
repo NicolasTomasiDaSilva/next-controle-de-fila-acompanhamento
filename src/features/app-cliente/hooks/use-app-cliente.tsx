@@ -19,7 +19,7 @@ export default function useAppCliente({
 }) {
   const { emitirSom } = useSom();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [versaoCliente, setVersaoCliente] = useState(0);
+
   const [cliente, setCliente] = useState(dadosIniciasCliente.cliente);
   const [fila, setFila] = useState(dadosIniciasCliente.fila);
   const [configuracao, setConfiguracao] = useState(
@@ -38,7 +38,6 @@ export default function useAppCliente({
     statusAnteriorRef.current = clienteAtualizado.status;
 
     setCliente(clienteAtualizado);
-    setVersaoCliente(versaoCliente + 1);
 
     if (statusAntigo !== clienteAtualizado.status) {
       switch (clienteAtualizado.status) {
@@ -68,7 +67,6 @@ export default function useAppCliente({
     try {
       const clienteAtualizado = await clienteService.desistir({ hash });
       setCliente(clienteAtualizado);
-      setVersaoCliente(versaoCliente + 1);
     } catch (error) {
       toast.error("Erro ao desistir.");
     }
@@ -79,7 +77,7 @@ export default function useAppCliente({
     cliente,
     fila,
     configuracao,
-    versaoCliente,
+
     handleDesisitir,
   };
 }
