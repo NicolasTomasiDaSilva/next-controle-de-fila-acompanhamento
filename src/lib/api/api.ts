@@ -15,6 +15,7 @@ import {
   authTokensSchema,
 } from "../features/autenticacao/models/auth-tokens";
 import isServer from "../utils/is-server";
+import { UnauthenticatedError } from "../errors/errors";
 
 export const api = {
   get: get,
@@ -275,8 +276,10 @@ export async function refreshToken(refreshToken: string): Promise<AuthTokens> {
     )) as AuthTokens;
 
     return tokens;
-  } catch (error) {
-    console.error("Erro ao atualizar o token de acesso:", error);
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      throw new UnauthenticatedError();
+    }
     throw error;
   }
 }

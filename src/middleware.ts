@@ -9,6 +9,7 @@ import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { jwtIsValid } from "./lib/utils/jwt-utils";
 import { AuthTokens } from "./lib/features/autenticacao/models/auth-tokens";
 import { tokensCookiesParams } from "./lib/utils/jwt-utils";
+import { UnauthenticatedError } from "./lib/errors/errors";
 
 const publicRoutes = [
   { path: "/monitor/login", whenAuthenticated: "redirect" },
@@ -70,12 +71,16 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     }
     throw new Error("Sem sessão");
   } catch (error: any) {
-    const redirectUrl: NextURL = req.nextUrl.clone();
-    redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
-    const response = NextResponse.redirect(redirectUrl);
-    response.cookies.delete("accessToken");
-    response.cookies.delete("refreshToken");
-    return response;
+    if (error instanceof UnauthenticatedError) {
+      const redirectUrl: NextURL = req.nextUrl.clone();
+      redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
+      const response = NextResponse.redirect(redirectUrl);
+      response.cookies.delete("accessToken");
+      response.cookies.delete("refreshToken");
+      return response;
+    } else {
+      throw error;
+    }
   }
 }
 
