@@ -1,4 +1,25 @@
+import { jwtDecode } from "jwt-decode";
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+
+type JWTPayload = {
+  exp?: number;
+  [key: string]: any;
+};
+
+export function jwtIsValid(token?: string): boolean {
+  if (!token) return false;
+
+  try {
+    const decoded = jwtDecode<JWTPayload>(token);
+
+    if (!decoded.exp) return false;
+
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp > now;
+  } catch {
+    return false;
+  }
+}
 
 export const tokensCookiesParams: Partial<ResponseCookie> = {
   httpOnly: true, // Impede acesso via JavaScript (protege contra XSS)
