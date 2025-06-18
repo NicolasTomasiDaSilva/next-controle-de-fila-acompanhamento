@@ -1,4 +1,4 @@
-import getTokensAction from "@/actions/cookies/get-tokens-action";
+import getTokensAction from "@/features/autenticacao/actions/cookies/get-tokens-action";
 
 import axios, {
   AxiosError,
@@ -9,7 +9,7 @@ import axios, {
 
 import { ZodSchema } from "zod";
 
-import saveTokensAction from "@/actions/cookies/save-tokens-action";
+import saveTokensAction from "@/features/autenticacao/actions/cookies/save-tokens-action";
 import {
   AuthTokens,
   authTokensSchema,

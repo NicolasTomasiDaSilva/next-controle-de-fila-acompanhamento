@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { toast } from "sonner";
 import { HubConnection } from "@microsoft/signalr";
-import { connectToHub } from "@/lib/signalr/client";
+import { connectToHub } from "@/lib/signalr/signalr";
 import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { AuthTokens, authTokensSchema } from "../models/auth-tokens";
 import { autenticacaoService } from "../services/autenticacao-service";

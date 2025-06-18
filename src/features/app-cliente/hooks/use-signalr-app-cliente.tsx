@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useRef } from "react";
 
 import { StatusEnum } from "@/lib/enums/status-enum";
 import { HubConnection } from "@microsoft/signalr";
-import { connectToHub } from "@/lib/signalr/client";
+import { connectToHub } from "@/lib/signalr/signalr";
 import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
 import { toast } from "sonner";
 

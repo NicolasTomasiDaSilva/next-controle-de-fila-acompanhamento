@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 
 import { cookies } from "next/headers";
 
-import { refreshToken } from "./lib/api/api";
+import { refreshToken } from "./lib/axios/axios";
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { jwtIsValid } from "./lib/utils/jwt-utils";
 import { AuthTokens } from "./lib/features/autenticacao/models/auth-tokens";
