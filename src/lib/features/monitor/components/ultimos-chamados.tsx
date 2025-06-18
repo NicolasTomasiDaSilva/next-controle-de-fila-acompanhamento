@@ -1,7 +1,7 @@
 "use client";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import formatarHorario from "@/lib/utils/formatar-horario";
+
 import { lightenColor } from "@/lib/utils/color-utils";
 import { ArrowRight, CircleCheck, Ticket } from "lucide-react";
 import { useConfiguracao } from "../hooks/use-configuracao";
@@ -10,6 +10,7 @@ import { useFila } from "../hooks/use-fila";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cliente } from "../models/cliente";
 import { StatusEnum } from "@/lib/enums/status-enum";
+import { formatarHorario } from "@/lib/utils/data-hora-utils";
 
 const animacao = {
   hidden: { opacity: 0, x: -30 }, // começa 30px à esquerda e invisível

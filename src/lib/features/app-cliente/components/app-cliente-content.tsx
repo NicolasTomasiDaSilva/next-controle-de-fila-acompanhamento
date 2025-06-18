@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BottomSheetDialog from "./botao-desistir";
 import { StatusEnum } from "@/lib/enums/status-enum";
-import { formatarIntervaloTempoEmMinutos } from "@/lib/utils/formatar-horario";
+
 import { useTempoDecorrido } from "./use-tempo-decorrido";
 import BotaoDesisitir from "./botao-desistir";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ import ChamadoAtual from "../../monitor/components/chamado-atual";
 import { useSignalrAppCliente } from "../hooks/use-signalr-app-cliente";
 import useAppCliente from "../hooks/use-app-cliente";
 import { Geist } from "next/font/google";
+import { formatarIntervaloTempoEmMinutos } from "@/lib/utils/data-hora-utils";
 
 interface AppUsuarioContentProps {
   dadosIniciasCliente: DadosIniciaisClienteDTO;

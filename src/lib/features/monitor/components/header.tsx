@@ -1,6 +1,6 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
-import formatarData from "@/lib/utils/formatar-data";
+import formatarData from "@/lib/utils/data-hora-utils";
 import { Clock } from "lucide-react";
 import { useConfiguracao } from "../hooks/use-configuracao";
 import Image from "next/image";

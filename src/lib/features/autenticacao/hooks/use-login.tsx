@@ -8,7 +8,7 @@ import Link from "next/link";
 import { empresaSchema } from "../../monitor/models/empresa";
 
 import z, { set } from "zod";
-import { formatarCpfCnpj } from "@/lib/utils/cpf-cnpj-utils";
+import { formatarCpfCnpj } from "@/lib/utils/dados-utils";
 import { cpfCnpjSchema } from "../../shared/models/values";
 import { vinculacaoService } from "../../monitor/services/vinculacao-service";
 import { toast } from "sonner";

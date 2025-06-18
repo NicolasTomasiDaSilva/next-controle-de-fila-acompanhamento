@@ -1,4 +1,3 @@
-// utils/formatCpfCnpj.ts
 export function formatarCpfCnpj(value: string): string {
   const digitos = extrairDigitos(value);
 
