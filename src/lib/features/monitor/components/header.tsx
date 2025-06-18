@@ -14,7 +14,7 @@ export default function Header() {
   useEffect(() => {
     const timer = setInterval(() => {
       const agora = new Date();
-      setDataFormatada(formatarData(agora));
+      setDataFormatada(formatarData(agora).toLocaleUpperCase());
     }, 1000);
 
     return () => clearInterval(timer);
