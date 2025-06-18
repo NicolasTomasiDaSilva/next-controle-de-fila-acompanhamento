@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useSom } from "../../shared/hooks/use-som";
+import AtivarNotificacoesSonorasDialog from "../../shared/components/ativar-notificacoes-sonoras-dialog";
 
 export default function MonitorContent() {
-  const [audioLiberado, setAudioLiberado] = useState(false);
-  const [mostrarDialog, setMostrarDialog] = useState(false);
   const { configuracao, handleEventoAtualizarConfiguracao } = useConfiguracao();
   const {
     ultimosChamados,
@@ -34,55 +34,16 @@ export default function MonitorContent() {
     handleEventoAtualizarConfiguracao,
   });
 
-  useEffect(() => {
-    // Abre o dialog imediatamente
-    if (!audioLiberado) {
-      setMostrarDialog(true);
-
-      // Fecha automaticamente após 10 segundos
-      const timeout = setTimeout(() => {
-        setMostrarDialog(false);
-      }, 15000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [audioLiberado]);
-
-  function liberarSom() {
-    try {
-      setAudioLiberado(true);
-      setMostrarDialog(false);
-
-      const utterance = new SpeechSynthesisUtterance(
-        "Notificações sonoras ativadas."
-      );
-      utterance.lang = "pt-BR";
-      window.speechSynthesis.speak(utterance);
-    } catch (err) {
-      toast.error("Erro ao ativar notificações sonoras.");
-    }
-  }
-
   return (
     <div
       className="flex-1 flex flex-col  justify-center "
       style={{ fontSize: "min(2vh, 1vw)" }}
     >
-      <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Deseja ativar notificações sonoras?</DialogTitle>
-            <DialogDescription>
-              Isso permitirá que os chamados sejam anunciados com som e voz.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant={"azul"} onClick={liberarSom}>
-              Permitir
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <AtivarNotificacoesSonorasDialog
+        descricao={
+          "Isso permitirá que os chamados sejam anunciados com som e voz."
+        }
+      />
 
       <div
         className="flex-1 flex flex-col h-full"
