@@ -7,28 +7,60 @@ export function useSom() {
   const [audioLiberado, setAudioLiberado] = useState<boolean>(false);
   const [mostrarDialog, setMostrarDialog] = useState<boolean>(false);
 
-  async function emitirSom(som: string) {
-    if (typeof window === "undefined") return;
+  const filaDeSons: string[] = [];
+  let tocando = false;
 
-    const audio = new Audio(`/sounds/${som}.mp3`);
+  function tocarAudioCompleto(src: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const audio = new Audio(src);
 
-    await new Promise<void>((resolve) => {
-      audio.addEventListener("ended", () => resolve());
-      audio.play();
+      const canPlayHandler = () => {
+        audio.removeEventListener("canplaythrough", canPlayHandler);
+
+        audio.play().catch(reject);
+
+        audio.addEventListener("ended", () => {
+          resolve();
+        });
+      };
+
+      audio.addEventListener("canplaythrough", canPlayHandler);
+
+      audio.addEventListener("error", (e) => {
+        audio.removeEventListener("canplaythrough", canPlayHandler);
+        reject(e);
+      });
+
+      audio.load();
     });
   }
+
+  async function emitirSom(som: string) {
+    filaDeSons.push(som);
+
+    if (tocando) return;
+
+    tocando = true;
+
+    while (filaDeSons.length > 0) {
+      const proximoSom = filaDeSons.shift()!;
+      try {
+        await tocarAudioCompleto(`/sounds/${proximoSom}.mp3`);
+      } catch {
+        // Ignora erros para não travar fila
+      }
+    }
+
+    tocando = false;
+  }
+
   async function chamarNome(nome: string) {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
 
-    const audio = new Audio("/sounds/beep.mp3");
+    // Toca beep esperando carregar e terminar
+    await tocarAudioCompleto("/sounds/beep.mp3");
 
-    // Espera o beep tocar
-    await new Promise((resolve) => {
-      audio.addEventListener("ended", resolve);
-      audio.play();
-    });
-
-    // Cria promise para o speechSynthesis
+    // Fala o nome aguardando o fim da fala
     await new Promise<void>((resolve) => {
       const mensagem = new SpeechSynthesisUtterance(nome);
       mensagem.lang = "pt-BR";
@@ -37,7 +69,7 @@ export function useSom() {
       mensagem.volume = 1;
 
       mensagem.onend = () => resolve();
-      mensagem.onerror = () => resolve(); // evita travar em erro
+      mensagem.onerror = () => resolve();
 
       window.speechSynthesis.speak(mensagem);
     });
