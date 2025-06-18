@@ -11,7 +11,7 @@ import {
 } from "../models/data-evento-acao-admin";
 import { Cliente } from "../models/cliente";
 import { ordenarPorDataHora } from "@/lib/utils/ordenacao-utils";
-import { falarNome } from "@/lib/utils/falar-utils";
+import { useSom } from "../../shared/hooks/use-som";
 
 export function useFila() {
   const context = useContext(FilaContext);
@@ -20,6 +20,7 @@ export function useFila() {
   }
 
   const { fila, setFila } = context;
+  const { chamarNome } = useSom();
 
   const nomesParaFalar = useRef<string[]>([]);
   const falando = useRef(false);
@@ -32,7 +33,7 @@ export function useFila() {
 
     falando.current = true;
     try {
-      await falarNome(proximoNome);
+      await chamarNome(proximoNome);
     } catch (error) {
       console.error("Erro ao falar nome:", error);
     } finally {
