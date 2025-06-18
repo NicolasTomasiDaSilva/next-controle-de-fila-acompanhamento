@@ -10,6 +10,7 @@ export default async function AppClientePage({ params }: AppUsuarioPageProps) {
   const dadosIniciasCliente = await clienteService.pegarDadosInicias({
     hash: hash,
   });
+  console.log(dadosIniciasCliente);
 
   return (
     <AppClienteContent dadosIniciasCliente={dadosIniciasCliente} hash={hash} />

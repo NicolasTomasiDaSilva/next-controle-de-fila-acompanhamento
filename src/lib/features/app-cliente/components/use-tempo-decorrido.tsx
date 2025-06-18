@@ -1,16 +1,12 @@
+import { calcularTempoDecorridoEmMinutos } from "@/lib/utils/formatar-horario";
 import { useState, useEffect } from "react";
 
 export function useTempoDecorrido(dataInicio: Date) {
-  const [minutos, setMinutos] = useState(0);
+  const [minutos, setMinutos] = useState<string>("0");
 
   useEffect(() => {
-    const entrada = new Date(dataInicio);
-
     function atualizar() {
-      const agora = new Date();
-      const diffMs = agora.getTime() - entrada.getTime();
-      const diffMin = Math.floor(diffMs / 1000 / 60);
-      setMinutos(diffMin >= 0 ? diffMin : 0);
+      setMinutos(calcularTempoDecorridoEmMinutos(dataInicio));
     }
 
     atualizar();

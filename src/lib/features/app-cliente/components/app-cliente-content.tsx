@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import BottomSheetDialog from "./botao-desistir";
 import { StatusEnum } from "@/lib/enums/status-enum";
-import { formatarTempoEmMinutos } from "@/lib/utils/formatar-horario";
+import { formatarIntervaloTempoEmMinutos } from "@/lib/utils/formatar-horario";
 import { useTempoDecorrido } from "./use-tempo-decorrido";
 import BotaoDesisitir from "./botao-desistir";
 import { useEffect, useState } from "react";
@@ -169,7 +169,7 @@ export default function AppClienteContent({
                 </p>
               </div>
               <p className="text-[2em] ml-auto font-bold whitespace-nowrap">
-                {formatarTempoEmMinutos(fila.tempoMedioEspera!)}
+                {formatarIntervaloTempoEmMinutos(fila.tempoMedioEspera!)} min
               </p>
             </Card>
           </div>
