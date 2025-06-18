@@ -3,7 +3,7 @@ import { FilaContext } from "../context/fila-context";
 import { StatusEnum } from "@/lib/enums/status-enum";
 import { HubConnection } from "@microsoft/signalr";
 import { connectToHub } from "@/lib/signalr/signalr";
-import { eventosHubMonitor } from "@/constantes/eventos-hub-monitor";
+import { eventosHubMonitor } from "@/lib/constants/eventos-hub-monitor";
 import { toast } from "sonner";
 import { useFila } from "./use-fila";
 import {
