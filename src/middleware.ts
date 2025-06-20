@@ -20,6 +20,11 @@ const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/monitor/login";
 const REDIRECT_WHEN_AUTHENTICATED_ROUTE = "/monitor";
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
+  // 🚫 Ignora requisições internas do Next (server actions / RSC updates)
+  const accept = req.headers.get("accept");
+  if (req.method === "POST" && accept && accept.includes("text/x-component")) {
+    return NextResponse.next();
+  }
   try {
     const { pathname } = req.nextUrl;
     const publicRoute = isPublicRoute(pathname);
