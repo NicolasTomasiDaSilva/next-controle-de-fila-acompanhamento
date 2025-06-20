@@ -38,7 +38,7 @@ export default function Header() {
 
       <h1
         className="text-[3em]
-      font-extrabold whitespace-nowrap text-shadow text-ellipsis overflow-hidden "
+      font-bold whitespace-nowrap text-shadow text-ellipsis overflow-hidden "
       >
         {configuracao.nomeDisplay.toLocaleUpperCase()}
       </h1>

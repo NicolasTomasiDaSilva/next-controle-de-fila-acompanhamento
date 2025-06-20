@@ -65,11 +65,10 @@ export function useFila() {
   }
 
   async function handleEventoChamarClientes(data: DataEventoAcaoClienteDTO) {
-    const { fila: filaAtualizada, clientesAcao: clientesChamados } = data;
+    const { fila: filaAtualizada, clienteAcao: clienteChamado } = data;
     setFila(filaAtualizada);
-    const cliente: Cliente = clientesChamados[0];
-    if (cliente) {
-      enqueueFalarNome(cliente.nome);
+    if (clienteChamado) {
+      enqueueFalarNome(clienteChamado.nome);
     }
   }
 

@@ -6,7 +6,7 @@ export const AcoesAdminEnumSchema = z.nativeEnum(AcoesAdminEnum);
 export const dataEventoAcaoClienteSchema = z.object({
   acao: AcoesAdminEnumSchema,
   fila: filaSchema,
-  clientesAcao: clienteSchema.array(),
+  clienteAcao: clienteSchema,
 });
 
 export type DataEventoAcaoClienteDTO = z.infer<
