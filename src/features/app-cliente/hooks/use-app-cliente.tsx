@@ -65,10 +65,13 @@ export default function useAppCliente({
 
   async function handleDesisitir() {
     try {
+      setIsSubmitting(true);
       const clienteAtualizado = await clienteService.desistir({ hash });
       setCliente(clienteAtualizado);
     } catch (error) {
       toast.error("Erro ao desistir.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 

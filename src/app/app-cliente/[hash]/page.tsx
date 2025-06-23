@@ -1,5 +1,6 @@
 import AppClienteContent from "@/features/app-cliente/components/app-cliente-content";
 import { clienteService } from "@/features/app-cliente/services/cliente-service";
+import { SomProvider } from "@/features/shared/contexts/som-context";
 
 interface AppClientePageProps {
   params: { hash: string };
@@ -13,6 +14,11 @@ export default async function AppClientePage({ params }: AppClientePageProps) {
   });
 
   return (
-    <AppClienteContent dadosIniciasCliente={dadosIniciasCliente} hash={hash} />
+    <SomProvider>
+      <AppClienteContent
+        dadosIniciasCliente={dadosIniciasCliente}
+        hash={hash}
+      />
+    </SomProvider>
   );
 }

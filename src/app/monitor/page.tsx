@@ -3,6 +3,7 @@ import { ConfiguracaoProvider } from "@/features/monitor/context/configuracao-co
 import { FilaProvider } from "@/features/monitor/context/fila-context";
 import { configuracaoService } from "@/features/monitor/services/configuracao-service";
 import { filaService } from "@/features/monitor/services/fila-service";
+import { SomProvider } from "@/features/shared/contexts/som-context";
 
 export default async function MonitorPage() {
   const configuracao = await configuracaoService.obterConfiguracao();
@@ -11,7 +12,9 @@ export default async function MonitorPage() {
   return (
     <ConfiguracaoProvider configuracaoInicial={configuracao}>
       <FilaProvider filaInicial={fila}>
-        <MonitorContent />
+        <SomProvider>
+          <MonitorContent />
+        </SomProvider>
       </FilaProvider>
     </ConfiguracaoProvider>
   );
