@@ -10,7 +10,6 @@ import {
 } from "react";
 
 interface SomContextType {
-  audioLiberado: boolean;
   mostrarDialog: boolean;
   setMostrarDialog: (v: boolean) => void;
   liberarSom: () => void;
@@ -21,7 +20,7 @@ interface SomContextType {
 export const SomContext = createContext<SomContextType | undefined>(undefined);
 
 export function SomProvider({ children }: { children: ReactNode }) {
-  const [audioLiberado, setAudioLiberado] = useState<boolean>(false);
+  const audioLiberado = useRef<boolean>(false);
   const [mostrarDialog, setMostrarDialog] = useState<boolean>(false);
 
   const filaDeSons = useRef<string[]>([]);
@@ -53,6 +52,7 @@ export function SomProvider({ children }: { children: ReactNode }) {
   }
 
   async function emitirSom(som: string) {
+    if (!audioLiberado.current) return;
     filaDeSons.current.push(som);
 
     if (tocando.current) return;
@@ -72,6 +72,7 @@ export function SomProvider({ children }: { children: ReactNode }) {
   }
 
   async function chamarNome(nome: string) {
+    if (!audioLiberado.current) return;
     if (typeof window === "undefined" || !window.speechSynthesis) return;
 
     // Toca beep esperando carregar e terminar
@@ -94,7 +95,7 @@ export function SomProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Abre o dialog imediatamente
-    if (!audioLiberado) {
+    if (!audioLiberado.current) {
       setMostrarDialog(true);
 
       // Fecha automaticamente após 10 segundos
@@ -106,15 +107,14 @@ export function SomProvider({ children }: { children: ReactNode }) {
     }
   }, [audioLiberado]);
 
-  function liberarSom() {
-    setAudioLiberado(true);
+  async function liberarSom() {
+    audioLiberado.current = true;
     setMostrarDialog(false);
   }
 
   return (
     <SomContext.Provider
       value={{
-        audioLiberado,
         mostrarDialog,
         setMostrarDialog,
         liberarSom,

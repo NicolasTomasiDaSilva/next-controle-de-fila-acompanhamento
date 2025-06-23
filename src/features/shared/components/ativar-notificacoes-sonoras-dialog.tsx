@@ -21,8 +21,7 @@ interface AtivarNotificacoesSonorasDialogProps {
 export default function AtivarNotificacoesSonorasDialog({
   descricao,
 }: AtivarNotificacoesSonorasDialogProps) {
-  const { audioLiberado, mostrarDialog, setMostrarDialog, liberarSom } =
-    useSom();
+  const { mostrarDialog, setMostrarDialog, liberarSom } = useSom();
 
   return (
     <Dialog open={mostrarDialog} onOpenChange={setMostrarDialog}>
@@ -32,7 +31,7 @@ export default function AtivarNotificacoesSonorasDialog({
           {descricao && <DialogDescription>{descricao}</DialogDescription>}
         </DialogHeader>
         <DialogFooter>
-          <Button variant={"azul"} onClick={liberarSom}>
+          <Button variant={"azul"} onClick={() => liberarSom()}>
             Permitir
           </Button>
         </DialogFooter>
