@@ -26,8 +26,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   const accessTokenStored = cookieStore.get("accessToken")?.value;
   const refreshTokenStored = cookieStore.get("refreshToken")?.value;
 
-  console.log("executou o middleware");
-
   if (!refreshTokenStored && !publicRoute) {
     const redirectUrl: NextURL = req.nextUrl.clone();
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE;
@@ -88,7 +86,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 }
 
 export const config: MiddlewareConfig = {
-  //TODO: remover |__nextjs_original-stack-frames
   matcher: ["/monitor/:path*"],
 };
 
