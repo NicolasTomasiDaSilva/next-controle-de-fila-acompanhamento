@@ -6,9 +6,7 @@ type JWTPayload = {
   [key: string]: any;
 };
 
-export function jwtIsValid(token?: string): boolean {
-  if (!token) return false;
-
+export function jwtIsValid(token: string): boolean {
   try {
     const decoded = jwtDecode<JWTPayload>(token);
 

@@ -1,12 +1,13 @@
 import AppClienteContent from "@/features/app-cliente/components/app-cliente-content";
 import { clienteService } from "@/features/app-cliente/services/cliente-service";
 
-interface AppUsuarioPageProps {
+interface AppClientePageProps {
   params: { hash: string };
 }
 
-export default async function AppClientePage({ params }: AppUsuarioPageProps) {
-  const hash = params?.hash;
+export default async function AppClientePage({ params }: AppClientePageProps) {
+  const { hash } = await params;
+
   const dadosIniciasCliente = await clienteService.pegarDadosInicias({
     hash: hash,
   });
