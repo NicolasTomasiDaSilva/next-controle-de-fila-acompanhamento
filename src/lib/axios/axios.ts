@@ -66,11 +66,7 @@ export function axiosInstance({
     (response) => response, // sucesso
     async (error) => {
       const originalRequest = error.config;
-      if (
-        error.response?.status === 401 &&
-        !originalRequest._retry &&
-        !isServer()
-      ) {
+      if (error.response?.status === 401 && !originalRequest._retry) {
         if (isRefreshing) {
           return new Promise((resolve, reject) => {
             failedQueue.push({
@@ -108,11 +104,7 @@ export function axiosInstance({
           return instance(originalRequest);
         } catch (error: any) {
           processQueue(error, null);
-          if (error instanceof UnauthenticatedError) {
-            await logout();
-          } else {
-            return Promise.reject(error);
-          }
+          return Promise.reject(error);
         } finally {
           isRefreshing = false;
         }
