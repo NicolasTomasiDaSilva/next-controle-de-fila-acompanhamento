@@ -4,14 +4,12 @@ import { entidadeSchema } from "./entidade";
 
 import { cpfCnpjSchema, texto } from "./values";
 import { filaSchema } from "./fila";
-import { vinculacaoSchema } from "./vinculacao";
 
 export const empresaSchema = entidadeSchema.extend({
   nome: texto({ campo: "Nome da Empresa", min: 1, max: 50 }),
   cpfCnpj: cpfCnpjSchema,
   email: z.string().trim().email("E-mail inválido").toLowerCase(),
   filas: z.array(filaSchema),
-  vinculacoes: z.array(vinculacaoSchema),
   configuracao: configuracaoSchema,
 });
 
