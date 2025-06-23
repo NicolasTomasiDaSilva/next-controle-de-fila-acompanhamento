@@ -14,7 +14,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6">
+    <main className="h-screen flex flex-col items-center justify-center">
       <h1 className="text-9xl font-extrabold text-blue-500">😞</h1>
       <h2 className="mt-4 text-3xl font-semibold text-gray-700">
         Algo deu errado.
