@@ -1,12 +1,17 @@
-import { calcularTempoDecorridoEmMinutos } from "@/lib/utils/data-hora-utils";
+import {
+  calcularTempoDecorridoEmMinutos,
+  formatarTempoDecorrido,
+} from "@/lib/utils/data-hora-utils";
 import { useState, useEffect } from "react";
 
 export function useTempoDecorrido(dataInicio: Date) {
-  const [minutos, setMinutos] = useState<string>("0");
+  const [tempoFormatado, setTempoFormatado] = useState<string>("0 min");
 
   useEffect(() => {
     function atualizar() {
-      setMinutos(calcularTempoDecorridoEmMinutos(dataInicio));
+      setTempoFormatado(
+        formatarTempoDecorrido(calcularTempoDecorridoEmMinutos(dataInicio))
+      );
     }
 
     atualizar();
@@ -14,5 +19,5 @@ export function useTempoDecorrido(dataInicio: Date) {
     return () => clearInterval(intervalo);
   }, [dataInicio]);
 
-  return minutos;
+  return tempoFormatado;
 }

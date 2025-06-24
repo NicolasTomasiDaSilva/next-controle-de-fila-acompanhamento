@@ -17,7 +17,7 @@ import ChamadoAtual from "../../monitor/components/chamado-atual";
 import { useSignalrAppCliente } from "../hooks/use-signalr-app-cliente";
 import useAppCliente from "../hooks/use-app-cliente";
 import { Geist } from "next/font/google";
-import { formatarIntervaloTempoEmMinutos } from "@/lib/utils/data-hora-utils";
+
 import {
   Dialog,
   DialogContent,
@@ -28,6 +28,10 @@ import {
 } from "@/components/ui/dialog";
 import { useSom } from "../../shared/hooks/use-som";
 import AtivarNotificacoesSonorasDialog from "../../shared/components/ativar-notificacoes-sonoras-dialog";
+import {
+  calcularIntervaloTempoEmMinutos,
+  formatarTempoDecorrido,
+} from "@/lib/utils/data-hora-utils";
 
 interface AppUsuarioContentProps {
   dadosIniciasCliente: DadosIniciaisClienteDTO;
@@ -51,7 +55,9 @@ export default function AppClienteContent({
     handleEventoAtualizarCliente,
   });
 
-  const minutos = useTempoDecorrido(dadosIniciasCliente.cliente.dataHoraCriado);
+  const tempoDecorrido = useTempoDecorrido(
+    dadosIniciasCliente.cliente.dataHoraCriado
+  );
   return (
     <>
       <AtivarNotificacoesSonorasDialog />
@@ -157,7 +163,7 @@ export default function AppClienteContent({
                 </div>
                 <p className="text-[2em]  ml-auto font-bold whitespace-nowrap">
                   {cliente.status === StatusEnum.Aguardando
-                    ? `${minutos} min`
+                    ? tempoDecorrido
                     : "--"}
                 </p>
               </Card>
@@ -179,7 +185,9 @@ export default function AppClienteContent({
                   </p>
                 </div>
                 <p className="text-[2em] ml-auto font-bold whitespace-nowrap">
-                  {formatarIntervaloTempoEmMinutos(fila.tempoMedioEspera!)} min
+                  {formatarTempoDecorrido(
+                    calcularIntervaloTempoEmMinutos(fila.tempoMedioEspera!)
+                  )}
                 </p>
               </Card>
             </div>

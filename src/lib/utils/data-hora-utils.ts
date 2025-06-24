@@ -19,7 +19,7 @@ export function formatarHorario(data: unknown): string {
   return `${hours}:${minutes}`;
 }
 
-export function formatarIntervaloTempoEmMinutos(tempo: string): string {
+export function calcularIntervaloTempoEmMinutos(tempo: string): number {
   const [horasStr, minutosStr, segundosStr] = tempo.split(":");
 
   const horas = Number(horasStr);
@@ -28,13 +28,26 @@ export function formatarIntervaloTempoEmMinutos(tempo: string): string {
 
   const totalMinutos = horas * 60 + minutos + segundos / 60;
 
-  return totalMinutos.toFixed(0);
+  return Math.floor(totalMinutos);
 }
 
-export function calcularTempoDecorridoEmMinutos(dataInicio: Date): string {
+export function calcularTempoDecorridoEmMinutos(dataInicio: Date): number {
   const agora = new Date();
   const diferencaMs = agora.getTime() - dataInicio.getTime();
   const minutos = Math.floor(diferencaMs / 1000 / 60);
 
-  return minutos.toFixed(0);
+  return minutos;
+}
+
+export function formatarTempoDecorrido(minutos: number): string {
+  const horas = Math.floor(minutos / 60);
+  const minutosRestantes = minutos % 60;
+
+  if (horas > 0 && minutosRestantes > 0) {
+    return `${horas} h ${minutosRestantes} min`;
+  } else if (horas > 0) {
+    return `${horas} h`;
+  } else {
+    return `${minutosRestantes} min`;
+  }
 }
