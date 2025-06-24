@@ -26,12 +26,5 @@ export function ExpirationBar({ dataExpiracao }: ExpirationBarProps) {
     return () => clearInterval(interval);
   }, [dataExpiracao]);
 
-  return (
-    <Progress
-      corFundo={"bg-blue-200"}
-      corBarra={"bg-blue-500"}
-      className="w-full h-3"
-      value={progress}
-    />
-  );
+  return <Progress className="w-full h-3" value={progress} />;
 }

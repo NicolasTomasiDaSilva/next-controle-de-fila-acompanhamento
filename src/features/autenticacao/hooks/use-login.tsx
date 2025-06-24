@@ -30,7 +30,6 @@ export function useLogin() {
     defaultValues: { cpfCnpj: "" },
   });
 
-  const router = useRouter();
   const [idVinculacao, setIdVinculacao] = useState<string | null>(null);
   const [cpfCnpj, setCpfCnpj] = useState<string>("");
   const [codigo, setCodigo] = useState<string | null>(null);
@@ -39,6 +38,18 @@ export function useLogin() {
   const [step, setStep] = useState<number>(1);
   const [qrcodeExpirado, setQrcodeExpirado] = useState<boolean>(false);
   const [inputMask, setInputMask] = useState<string>("");
+
+  async function handleVoltar() {
+    setStep(1);
+    setCpfCnpj("");
+    setIdVinculacao(null);
+    setCodigo(null);
+    setDataExpiracao(null);
+    setQrcodeExpirado(false);
+    setInputMask("");
+    form.reset();
+    setIsSubmitting(false);
+  }
 
   useSignalrLogin(idVinculacao);
 
@@ -122,5 +133,6 @@ export function useLogin() {
     isSubmitting,
     qrcodeExpirado,
     handleGerarNovamente,
+    handleVoltar,
   };
 }

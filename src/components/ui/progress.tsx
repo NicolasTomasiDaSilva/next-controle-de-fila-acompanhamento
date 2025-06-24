@@ -6,8 +6,6 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 import { cn } from "@/lib/utils";
 
 function Progress({
-  corFundo,
-  corBarra,
   className,
   value,
   ...props
@@ -18,7 +16,7 @@ function Progress({
       className={cn(
         "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
         className,
-        corFundo
+        "bg-blue-200"
       )}
       {...props}
     >
@@ -26,7 +24,7 @@ function Progress({
         data-slot="progress-indicator"
         className={cn(
           "bg-primary h-full w-full flex-1 transition-all",
-          corBarra
+          "bg-blue-500"
         )}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />

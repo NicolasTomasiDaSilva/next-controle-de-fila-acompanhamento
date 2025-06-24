@@ -14,24 +14,35 @@ import { useLogin } from "../hooks/use-login";
 import { QRCode } from "react-qrcode-logo";
 import { ExpirationBar } from "./expiration-bar";
 import { Separator } from "@/components/ui/separator";
-import { ChevronRight, RefreshCcw } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCcw } from "lucide-react";
 
-export default function LoginForm() {
-  const {
-    form,
-    step,
-    inputMask,
-    handleMaskedChange,
-    onSubmit,
-    codigo,
-    dataExpiracao,
-    isSubmitting,
-    qrcodeExpirado,
-    handleGerarNovamente,
-  } = useLogin();
+interface LoginFormProps {
+  form: any;
+  step: number;
+  inputMask: string;
+  handleMaskedChange: (value: string) => void;
+  onSubmit: (data: any) => void;
+  codigo: string | null;
+  dataExpiracao: Date | null;
+  isSubmitting: boolean;
+  qrcodeExpirado: boolean;
+  handleGerarNovamente: () => void;
+}
 
+export default function LoginForm({
+  form,
+  step,
+  inputMask,
+  handleMaskedChange,
+  onSubmit,
+  codigo,
+  dataExpiracao,
+  isSubmitting,
+  qrcodeExpirado,
+  handleGerarNovamente,
+}: LoginFormProps) {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {step === 1 && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -70,6 +81,7 @@ export default function LoginForm() {
           </form>
         </Form>
       )}
+
       {step === 2 &&
         codigo &&
         dataExpiracao &&
@@ -87,7 +99,7 @@ export default function LoginForm() {
         ) : (
           <div className="flex flex-col gap-4 ">
             <div className="flex flex-row gap-4 justify-center gap-4">
-              <div className="w-50">
+              <div className="w-45">
                 <QRCode
                   value={codigo}
                   bgColor="transparent"
@@ -101,6 +113,7 @@ export default function LoginForm() {
                 <p className="text-7xl font-extrabold">{codigo}</p>
               </div>
             </div>
+
             <div className="w-[70%] mx-auto ">
               <ExpirationBar dataExpiracao={dataExpiracao} />
             </div>
