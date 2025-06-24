@@ -75,10 +75,12 @@ export default function AppClienteContent({
                 />
               )}
 
-              <p className="leading-none  text-center max-w-full text-muted-foreground">
-                <MapPin className="!h-5 !w-5 inline text-black" />{" "}
-                {configuracao.enderecoDisplay}
-              </p>
+              {configuracao.enderecoDisplay && (
+                <p className="leading-none  text-center max-w-full text-muted-foreground">
+                  <MapPin className="!h-5 !w-5 inline text-black" />{" "}
+                  {configuracao.enderecoDisplay}
+                </p>
+              )}
             </div>
             <div className="flex flex-col h-45 justify-between ">
               {cliente.status === StatusEnum.Aguardando && (
