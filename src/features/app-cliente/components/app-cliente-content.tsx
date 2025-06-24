@@ -16,17 +16,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import ChamadoAtual from "../../monitor/components/chamado-atual";
 import { useSignalrAppCliente } from "../hooks/use-signalr-app-cliente";
 import useAppCliente from "../hooks/use-app-cliente";
-import { Geist } from "next/font/google";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useSom } from "../../shared/hooks/use-som";
 import AtivarNotificacoesSonorasDialog from "../../shared/components/ativar-notificacoes-sonoras-dialog";
 import {
   calcularIntervaloTempoEmMinutos,
@@ -64,15 +54,14 @@ export default function AppClienteContent({
       <div
         className="flex-1 flex flex-col items-center justify-center"
         style={{
-          fontSize: "min(0.85vh, 1.5vw)",
           backgroundImage: "none",
           background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, white 100%)`,
         }}
       >
-        <div className="flex  flex-col justify-center items-center gap-[1.5em]  p-[2em] max-w-[75em] ">
-          <Card className="px-[2em] w-full">
-            <div className="flex flex-col items-center gap-[1em]">
-              <p className="text-[3em]  font-extrabold leading-none  text-center line-clamp-2">
+        <div className="flex flex-col justify-center items-center gap-2 p-2 max-w-150">
+          <Card className="px-4 w-full py-4 gap-4">
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-2xl font-extrabold leading-none text-center line-clamp-2">
                 {configuracao.nomeDisplay}
               </p>
               {configuracao.logoUrl && (
@@ -81,22 +70,20 @@ export default function AppClienteContent({
                   width={100}
                   height={100}
                   alt="Logo"
-                  className="rounded-md object-cover w-[10em] h-[10em]"
+                  className="rounded-md object-cover w-25 h-25"
                   priority
                 />
               )}
 
-              <p className="text-[2em]  leading-none  text-center max-w-full ">
-                <MapPin className="!h-[1em] !w-[1em] inline" />{" "}
+              <p className="leading-none  text-center max-w-full text-muted-foreground">
+                <MapPin className="!h-5 !w-5 inline text-black" />{" "}
                 {configuracao.enderecoDisplay}
               </p>
             </div>
-            <div className="flex flex-col gap-[2.5em] h-[25em] justify-between ">
+            <div className="flex flex-col h-45 justify-between ">
               {cliente.status === StatusEnum.Aguardando && (
                 <>
-                  <p className="text-[2em] text-center font-bold">
-                    Sua posição na fila
-                  </p>
+                  <p className="text-center font-bold">Sua posição na fila</p>
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={cliente.posicao}
@@ -104,7 +91,7 @@ export default function AppClienteContent({
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      className={`font-(family-name:--font-geist-sans) text-[15em]  text-center font-extrabold leading-none`}
+                      className={`font-(family-name:--font-geist-sans) text-9xl  text-center font-extrabold leading-none`}
                       style={{
                         color: configuracao.corPrimaria,
                       }}
@@ -113,7 +100,7 @@ export default function AppClienteContent({
                     </motion.div>
                   </AnimatePresence>
 
-                  <p className="text-[1.5em] text-center text-muted-foreground">
+                  <p className=" text-center text-muted-foreground">
                     Atualizado em tempo real
                   </p>
                 </>
@@ -121,7 +108,7 @@ export default function AppClienteContent({
               {cliente.status !== StatusEnum.Aguardando && (
                 <AnimatePresence mode="wait">
                   <motion.div
-                    className="mx-auto my-auto text-[3.5em] text-center font-bold"
+                    className="mx-auto my-auto text-center font-bold"
                     key={cliente.status}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -129,62 +116,66 @@ export default function AppClienteContent({
                     transition={{ duration: 0.5 }}
                   >
                     {cliente.status === StatusEnum.Chamado && (
-                      <p className="text-green-500">Você foi chamado!</p>
+                      <p className="text-green-500 text-3xl">
+                        Você foi chamado!
+                      </p>
                     )}
                     {cliente.status === StatusEnum.Removido && (
-                      <p className="text-red-500">Você foi removido</p>
+                      <p className="text-red-500 text-3xl">Você foi removido</p>
                     )}
                     {cliente.status === StatusEnum.Desistente && (
-                      <p className="text-orange-500">Você saiu da fila</p>
+                      <p className="text-orange-500 text-3xl">
+                        Você saiu da fila
+                      </p>
                     )}
                     {cliente.status === StatusEnum.Ausente && (
-                      <p className="text-yellow-500">Você não compareceu</p>
+                      <p className="text-yellow-500 text-3xl">
+                        Você não compareceu
+                      </p>
                     )}
                   </motion.div>
                 </AnimatePresence>
               )}
             </div>
 
-            <div className="flex flex-col gap-[2em]">
-              <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em] rounded-[1em]">
-                <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 rounded-[1em]">
+            <div className="flex flex-col gap-2">
+              <Card className="bg-gray-100 border-none px-2 flex flex-row items-center gap-2 py-1.5 rounded-1">
+                <Card className="w-10 h-10 flex items-center justify-center bg-white  p-0 rounded-1">
                   <Clock
-                    className="!h-[2.5em] !w-[2.5em]"
+                    className="!h-5 !w-5"
                     style={{
                       color: configuracao.corPrimaria,
                     }}
                   />
                 </Card>
                 <div className="flex flex-col">
-                  <p className="text-[2em] font-semibold">Tempo já aguardado</p>
-                  <p className="text-[1.5em] text-muted-foreground">
+                  <p className=" font-semibold">Tempo já aguardado</p>
+                  <p className=" text-muted-foreground text-sm">
                     Desde sua entrada na fila
                   </p>
                 </div>
-                <p className="text-[2em]  ml-auto font-bold whitespace-nowrap">
+                <p className="  ml-auto font-bold whitespace-nowrap">
                   {cliente.status === StatusEnum.Aguardando
                     ? tempoDecorrido
                     : "--"}
                 </p>
               </Card>
-              <Card className="bg-gray-100 border-none px-[1em] flex flex-row items-center gap-[1em] py-[1em] rounded-[1em]">
-                <Card className="w-[4em] h-[4em] flex items-center justify-center bg-white  p-0 rounded-[1em] ">
+              <Card className="bg-gray-100 border-none px-2 flex flex-row items-center gap-2 py-1.5 rounded-1">
+                <Card className="w-10 h-10 flex items-center justify-center bg-white  p-0 rounded-1 ">
                   <Clock
-                    className="!h-[2.5em] !w-[2.5em]"
+                    className="!h-5 !w-5"
                     style={{
                       color: configuracao.corPrimaria,
                     }}
                   />
                 </Card>
                 <div className="flex flex-col">
-                  <p className="text-[2em] font-semibold">
-                    Tempo médio de espera
-                  </p>
-                  <p className="text-[1.5em] text-muted-foreground">
+                  <p className="font-semibold">Tempo médio de espera</p>
+                  <p className="text-muted-foreground text-sm">
                     Baseado no fluxo da fila
                   </p>
                 </div>
-                <p className="text-[2em] ml-auto font-bold whitespace-nowrap">
+                <p className=" ml-auto font-bold whitespace-nowrap">
                   {formatarTempoDecorrido(
                     calcularIntervaloTempoEmMinutos(fila.tempoMedioEspera!)
                   )}
@@ -192,29 +183,27 @@ export default function AppClienteContent({
               </Card>
             </div>
           </Card>
-          <Card className="px-[2em] w-full">
-            <p className="text-[2em] font-bold">Enquanto você espera</p>
-            <div className="flex flex-row items-center gap-[1em]">
+          <Card className="px-4 w-full py-4 gap-4">
+            <p className="font-bold">Enquanto você espera</p>
+            <div className="flex flex-row items-center gap-2">
               <div
-                className="w-[0.6em] h-[0.6em] rounded-full "
+                className="!w-1 !h-1 rounded-full shrink-0 "
                 style={{
                   backgroundColor: configuracao.corPrimaria,
                 }}
               />
-              <p className="text-[1.5em]">
+              <p className="text-sm">
                 Você receberá uma mensagem no seu WhatsApp quando chegar sua vez
               </p>
             </div>
-            <div className="flex flex-row items-center gap-[1em]">
+            <div className="flex flex-row items-center gap-2">
               <div
-                className="w-[0.6em] h-[0.6em] rounded-full "
+                className="!w-1 !h-1 rounded-full shrink-0"
                 style={{
                   backgroundColor: configuracao.corPrimaria,
                 }}
               />
-              <p className="text-[1.5em]">
-                Você pode desistir da fila se precisar
-              </p>
+              <p className="text-sm">Você pode desistir da fila se precisar</p>
             </div>
           </Card>
           {cliente.status === StatusEnum.Aguardando && (

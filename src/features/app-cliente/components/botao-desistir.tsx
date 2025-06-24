@@ -37,9 +37,9 @@ export default function BotaoDesisitir({
   const trigger = (
     <Button
       variant="ghost"
-      className="!text-[2em] text-accent-foreground hover:text-red-500 mt-[0.5em]"
+      className=" text-accent-foreground hover:text-red-500 text-lg mt-2"
     >
-      <LogOut className="!h-[1em] !w-[1em] text-accent-foreground hover:text-red-500 text-inherit" />
+      <LogOut className="!h-4 !w-4 text-accent-foreground hover:text-red-500 text-inherit" />
       Desistir da fila
     </Button>
   );
