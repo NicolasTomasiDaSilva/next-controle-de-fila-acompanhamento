@@ -64,7 +64,7 @@ export default function AppClienteContent({
       <div
         className="flex-1 flex flex-col items-center justify-center"
         style={{
-          fontSize: "min(0.8vh, 1.5vw)",
+          fontSize: "min(0.85vh, 1.5vw)",
           backgroundImage: "none",
           background: `linear-gradient(to bottom, ${configuracao.corPrimaria} 0%, white 100%)`,
         }}
