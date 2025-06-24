@@ -1,3 +1,4 @@
+import getTokensAction from "@/features/autenticacao/actions/cookies/get-tokens-action";
 import { HubConnectionBuilder, HubConnection } from "@microsoft/signalr";
 
 export async function connectToHub({
@@ -16,8 +17,7 @@ export async function connectToHub({
   if (query) url += `?${query}`;
 
   if (!withoutAccessToken) {
-    const res = await fetch("/api/get-access-token");
-    const { accessToken } = await res.json();
+    const { accessToken } = await getTokensAction();
 
     url += query
       ? `&access_token=${accessToken}`
