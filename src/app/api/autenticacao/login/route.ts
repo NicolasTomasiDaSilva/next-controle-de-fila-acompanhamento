@@ -1,6 +1,5 @@
 import { AuthTokens } from "@/features/autenticacao/models/auth-tokens";
 import { tokensCookiesParams } from "@/lib/utils/jwt-utils";
-
 import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";

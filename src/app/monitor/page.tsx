@@ -4,7 +4,7 @@ import { FilaProvider } from "@/features/monitor/context/fila-context";
 import { configuracaoService } from "@/features/monitor/services/configuracao-service";
 import { filaService } from "@/features/monitor/services/fila-service";
 import { SomProvider } from "@/features/shared/contexts/som-context";
-
+export const dynamic = "force-dynamic";
 export default async function MonitorPage() {
   const configuracao = await configuracaoService.obterConfiguracao();
   const fila = await filaService.obterFila();

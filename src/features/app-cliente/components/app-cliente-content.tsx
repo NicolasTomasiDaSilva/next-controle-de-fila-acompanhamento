@@ -66,7 +66,7 @@ export default function AppClienteContent({
         <div className="flex  flex-col justify-center items-center gap-[1.5em]  p-[2em] max-w-[75em] ">
           <Card className="px-[2em] w-full">
             <div className="flex flex-col items-center gap-[1em]">
-              <p className="text-[3em]  font-extrabold leading-none">
+              <p className="text-[3em]  font-extrabold leading-none  text-center line-clamp-2">
                 {configuracao.nomeDisplay}
               </p>
               {configuracao.logoUrl && (
@@ -80,12 +80,10 @@ export default function AppClienteContent({
                 />
               )}
 
-              <div className="flex flex-row items-center justify-center gap-[0.5em]">
-                <MapPin className="!h-[2em] !w-[2em]" />
-                <p className="text-[2em]  leading-none">
-                  {configuracao.enderecoDisplay}
-                </p>
-              </div>
+              <p className="text-[2em]  leading-none  text-center max-w-full ">
+                <MapPin className="!h-[1em] !w-[1em] inline" />{" "}
+                {configuracao.enderecoDisplay}
+              </p>
             </div>
             <div className="flex flex-col gap-[2.5em] h-[25em] justify-between ">
               {cliente.status === StatusEnum.Aguardando && (
